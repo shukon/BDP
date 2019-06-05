@@ -6,10 +6,10 @@
 - Chat mit Mesibo
 
 ## Links:
-Etherpad: https://pad.riseup.net/p/bdpgoesdigital-keep
-Github: https://github.com/shukon/BDP/
-Bisheriger Intern-Bereich: https://www.bawue.bdp.org/intern/
-Freizeiten: https://www.ak-freizeiten.de/freizeiten/jugendfreizeiten/
+- Etherpad: https://pad.riseup.net/p/bdpgoesdigital-keep
+- Github: https://github.com/shukon/BDP/
+- Bisheriger Intern-Bereich: https://www.bawue.bdp.org/intern/
+- Freizeiten: https://www.ak-freizeiten.de/freizeiten/jugendfreizeiten/
 
 ## Wünsche an den AK:
 
