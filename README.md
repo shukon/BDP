@@ -1,14 +1,15 @@
 # BDP goes digital
 
 Hi!
-In der letzten Freizeitenevaluation kam von Teamer\*innen-Seite der Wunsch nach einer BDP-App auf.
-Seither ist viel geschehen und auch der Vorstand und das Büro haben ihre Vorstellungen mit in den Topf geworfen.
-Es hat sich jetzt sowas wie ein BDP-Cyber-AK ;) gegründet, der die Wünsche geordnet, zusammengelegt und auf technische Umsetzbarkeit untersucht hat. Wir sind aktuell zu drei-ein-halbt: Thorsten, Stefan, Shuki und ab Herbst evtl. Ramona.
+In der letzten Freizeitenevaluation kam von Teamer\*innen-Seite der Wunsch nach einer BDP-App auf.  
+Seither ist viel geschehen und auch der Vorstand und das Büro haben ihre Vorstellungen mit in den Topf geworfen.  
+Es hat sich jetzt sowas wie ein BDP-Cyber-AK ;) gegründet, der die Wünsche geordnet, zusammengelegt und auf technische Umsetzbarkeit untersucht hat. Wir sind aktuell zu drei-ein-halbt: Thorsten, Stefan, Shuki und ab Herbst evtl. Ramona.  
 
-Zur Zeit befinden wir uns in der Planungsphase. Das bedeutet, wir können ziemlich gut noch Hilfe jeder Art gebrauchen - Programmierung, Design, Konzept und auch Wünsche. Jede Resonanz hilft - wir wollen die App nicht für, sondern mit euch entwickeln!
+Zur Zeit befinden wir uns in der Planungsphase.  
+Das bedeutet, wir können ziemlich gut noch Hilfe jeder Art gebrauchen - Programmierung, Design, Konzept und auch Wünsche. Jede Resonanz hilft - wir wollen die App nicht für, sondern mit euch entwickeln!  
 
-Für interaktive Diskussion haben wir mal ein etherpad geöffnet - das ist ein Dokument, in dem alle ohne Anmeldung mitschreiben können:
-https://pad.riseup.net/p/bdpgoesdigital-keep
+Für interaktive Diskussion haben wir mal ein etherpad geöffnet - das ist ein Dokument, in dem alle ohne Anmeldung mitschreiben können:  
+https://pad.riseup.net/p/bdpgoesdigital-keep  
 
 Wenn du das grade liest, hast du unser GitHub-Repository schon gefunden. Hier entsteht der Quelltext für das Projekt - kollaborativ, offen, frei! GitHub ist eine Plattform, die den Quelltext für uns speichert. Das hat einige Vorteile:
 - falls uns mal das Laptop verlustig geht, sind die Daten alle noch da!
