@@ -1,5 +1,23 @@
 # BDP goes digital
 
+Hi!
+In der letzten Freizeitenevaluation kam von Teamer\*innen-Seite der Wunsch nach einer BDP-App auf.  
+Seither ist viel geschehen und auch der Vorstand und das Büro haben ihre Vorstellungen mit in den Topf geworfen.  
+Es hat sich jetzt sowas wie ein BDP-Cyber-AK ;) gegründet, der die Wünsche geordnet, zusammengelegt und auf technische Umsetzbarkeit untersucht hat. Wir sind aktuell zu drei-ein-halbt: Thorsten, Stefan, Shuki und ab Herbst evtl. Ramona.  
+
+Zur Zeit befinden wir uns in der Planungsphase.  
+Das bedeutet, wir können ziemlich gut noch Hilfe jeder Art gebrauchen - Programmierung, Design, Konzept und auch Wünsche. Jede Resonanz hilft - wir wollen die App nicht für, sondern mit euch entwickeln!  
+
+Für interaktive Diskussion haben wir mal ein etherpad geöffnet - das ist ein Dokument, in dem alle ohne Anmeldung mitschreiben können:  
+https://pad.riseup.net/p/bdpgoesdigital-keep  
+
+Wenn du das grade liest, hast du unser GitHub-Repository schon gefunden. Hier entsteht der Quelltext für das Projekt - kollaborativ, offen, frei! GitHub ist eine Plattform, die den Quelltext für uns speichert. Das hat einige Vorteile:
+- falls uns mal das Laptop verlustig geht, sind die Daten alle noch da!
+- GitHub nutzt *versioning* - das bedeutet, wir können auf beliebige vorherige Versionen der App zurückgreifen. Wenn also durch ein Update schwere Fehler entstehen, dann lässt sich das leicht wieder rückgängig machen.
+- git wird für viele Software-Projekte genutzt - es ergibt sich also ein gewisser professioneller Standard.
+
+Mehr Infos zu GitHub: https://git-scm.com/book/de/v1/Los-geht%E2%80%99s-Git-Grundlagen oder https://rogerdudler.github.io/git-guide/index.de.html.
+
 ## Fahrplan:
 - SDK: Flutter
 - Progressive WebApp mit HTML5, CSS und JavaScript
@@ -66,12 +84,12 @@ Die App muss auf Android, iOS und im Browser laufen --> Web App einfachste Lösu
 \__________|__________/  
 ```
 
-(1)  
+### (1) Chat
 Chatroom (z.B. Rocket-Chat) mit automatischen Gruppen für alles, für das ich angemeldet bin, z.B:  
     - Gruppe mit Teilis und Teamis einer Freizeit  
     - Gruppenchat für Team zur Planung  
 
-(2)  
+### (2) Seminare/Freizeiten
 Tabs: (wie bei flixbus)  
 
 |Freizeiten   |Seminare   |Sonstiges  |  
@@ -83,7 +101,7 @@ Eventuell gibt es hier auch eine Kalenderansicht
 
 Über "Meine Freizeiten" kann man auch in den Chatroom zu der entsprechenden Freizeit gelangen  
 
-(3)  
+### (3) Newsfeed / Eckbrief / Zeug
 Newsfeed evtl auch mit Tabs, unterteilen in  
 
 - allgemeine News vom BDP  
@@ -92,7 +110,7 @@ Newsfeed evtl auch mit Tabs, unterteilen in
 
 Die Grundidee hier ist, den Eckbrief attraktiv zu ersetzen.  
 
-(4)  
+### (4) Wiki / Datenbank
 Nur für Teamende!  
 Hier gibt es eine ordentliche Datenbank für  
 
@@ -100,7 +118,7 @@ Hier gibt es eine ordentliche Datenbank für
 - Kochbuch
 - Anleitungen (Zelte, Gaskocher,...)
 
-Sachen die wir (vielleicht) einkaufen können:  
+## Sachen die wir (vielleicht) einkaufen können:  
 - User Management (Login etc.)
 - Chatfunktion
 - Wiki
