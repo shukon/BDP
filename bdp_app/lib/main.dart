@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 
 void main() => runApp(MyApp());
 
-
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -26,7 +25,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-//Klasse für den Login-Screem
+//Klasse für den Login-Screen
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
 
@@ -45,16 +44,61 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-
 class _HomePageState extends State<HomePage> {
-  int _counter = 0;
+
+  final TextEditingController _usernameFilter = new TextEditingController();
+  final TextEditingController _passwordFilter = new TextEditingController();
+
+  _HomePageState() {
+    _usernameFilter.addListener(_usernameListen);
+    _passwordFilter.addListener(_passwordListen);
+  }
+
+  String _username = "";
+  String _password = "";
+
+  String _loginSuccess = "login failed";
 
   String _activePage = "LoginPage";
 
+  void _usernameListen() {
+    if (_usernameFilter.text.isEmpty) {
+      setState(() {
+        _username = "";
+      });
+    } else {
+      setState(() {
+        _username = _usernameFilter.text;
+      });
+    }
+  }
+
+  void _passwordListen() {
+    if (_passwordFilter.text.isEmpty) {
+      setState(() {
+        _password = "";
+      });
+    } else {
+      setState(() {
+        _password = _passwordFilter.text;
+      });
+    }
+  }
 
   Future _loginButtonPressed() async {
     setState(() {
-      _activePage = "RoomsPage";
+      if (_username == "stefan" && _password == "1234") {
+        _loginSuccess = "erfolgreich angemeldet als stefan";
+        _activePage = "RoomsPage";
+      } else {
+        showDialog(
+            context: context,
+            barrierDismissible: true,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                  title: new Text("Benuztername oda Paswoat falsch"));
+            });
+      }
     });
   }
 
@@ -66,12 +110,15 @@ class _HomePageState extends State<HomePage> {
 
   _backButtonPressed() {
     if (_activePage == "RoomsPage") {
-      setState((){_activePage = "LoginPage";});
+      setState(() {
+        _activePage = "LoginPage";
+      });
     } else if (_activePage == "ChatPage") {
-      setState((){_activePage = "RoomsPage";});
+      setState(() {
+        _activePage = "RoomsPage";
+      });
     }
   }
-
 
   Widget _LoginPage() {
     return Scaffold(
@@ -100,21 +147,39 @@ class _HomePageState extends State<HomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text("Login Page"),
-            new Row(
-              children: [Text("Username")]
+            Text("Login", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32.0)),
+            new Container(
+              padding: EdgeInsets.symmetric(horizontal: 8.0),
+              child: new Column(
+                children: <Widget>[
+                  new Container(
+                    child: new TextField(
+                      controller: _usernameFilter,
+                      decoration: new InputDecoration(labelText: 'Username'),
+                    ),
+                  ),
+                  new Container(
+                    child: new TextField(
+                      controller: _passwordFilter,
+                      decoration: new InputDecoration(labelText: 'Password'),
+                      obscureText: true,
+                    ),
+                  ),
+                  RaisedButton(
+                      child: Text("Anmelden"),
+                      color: Colors.deepOrange,
+                      onPressed: () {
+                        _loginButtonPressed();
+                      },
+                  ),
+                ],
+              ),
             )
-            ],
+          ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _loginButtonPressed,
-        tooltip: 'Login',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
-
 
   Widget _RoomsPage() {
     return Scaffold(
@@ -125,21 +190,13 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text("roomspage"),
-            TextField(
-              maxLines: 4,
-            ),
-            Text(
-              '$_counter',
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .display1,
-            ),
-            IconButton(
-                icon: Icon(Icons.arrow_back),
-                onPressed: () { _backButtonPressed();}
-            ),
+            Text("rooms page"),
+            Text(_loginSuccess),
+            RaisedButton(
+                child: Text("Abmelden"),
+                onPressed: () {
+                  _backButtonPressed();
+                }),
           ],
         ),
       ),
@@ -165,8 +222,7 @@ class _HomePageState extends State<HomePage> {
                 icon: Icon(Icons.arrow_back),
                 onPressed: () {
                   _backButtonPressed();
-                }
-            ),
+                }),
           ],
         ),
       ),
@@ -198,5 +254,3 @@ class _HomePageState extends State<HomePage> {
     }
   }
 }
-
-
