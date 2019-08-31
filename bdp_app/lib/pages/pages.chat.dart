@@ -25,10 +25,16 @@ class _ChatPageState extends State<ChatPage> {
   static const messageSender =
   const MethodChannel("com.bdp.bdp_app/mesibo");
 
-  Future<void> _getMessages() async {
+  @override
+  void initState() {
+    _getMessages();
+    super.initState();
+  }
 
+  void _getMessages() {
     //warte auf neue Nachricht aus dem Netzwerk
-    await messageListener.receiveBroadcastStream().listen((dynamic event) {
+    messageListener.receiveBroadcastStream().listen((dynamic event) {
+      print("Messages detected by listener!");
       print(event);
       var message = jsonDecode(event);
       _messages.insert(
@@ -49,12 +55,14 @@ class _ChatPageState extends State<ChatPage> {
 
   }
 
-  Future<void> _sendMessage(String message, String destination) async {
+  void _sendMessage(String message, String destination) {
+    print("Trying to send message " + message + " TO: " + destination);
     try {
-      await messageSender.invokeMethod('send-message', {"message": message, "destination" : destination});
+      messageSender.invokeMethod('send-message', {"message": message, "destination" : destination});
     } on PlatformException catch (e) {
       print("Something utterly wrong: '${e.message}'.");
     }
+    print("Message probably sent.");
   }
 
   void _handleSubmit(String text) {
@@ -62,7 +70,6 @@ class _ChatPageState extends State<ChatPage> {
     print("Widget username: " + widget.username);
     ChatMessage chatMessage = new ChatMessage(
         username: widget.username, sendername: widget.username, text: text);
-    //TODO: send message on mesibo
     _sendMessage(text, widget.chatID);
     setState(() {
       //used to rebuild our widget
@@ -100,7 +107,6 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    _getMessages();
     return Scaffold(
         body: Center(
             child: new Column(
