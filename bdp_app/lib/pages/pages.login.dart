@@ -1,3 +1,4 @@
+import 'package:bdp_app/pages/pages.rooms.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -13,7 +14,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _usernameFilter = new TextEditingController();
   final TextEditingController _passwordFilter = new TextEditingController();
 
-  static const platform = const MethodChannel("com.bdp.bdp_app/login");
+  static const platform = const MethodChannel("com.bdp.bdp_app/mesibo");
 
   String _username = "";
   String _password = "";
@@ -59,22 +60,26 @@ class _LoginPageState extends State<LoginPage> {
 
   Future _loginButtonPressed() async {
     setState(() {
-      if (_username == "stefan" && _password == "1234") {
+      // Check if login data is valid: pretty secure at the moment, probably fine for deployment
+      var validLogins = {"stefan" : "1234",
+                         "shuki" : "aaa",
+                         "thorsten" : "passwort"};
+      if (validLogins.containsKey(_username) && validLogins[_username] == _password){
         _loginSuccess = true;
-        //Navigator.pushNamed(context, 'rooms');
-        //_loginMesibo(_username);
       } else {
         showDialog(
             context: context,
             barrierDismissible: true,
             builder: (BuildContext context) {
               return AlertDialog(
-                  title: new Text("Benuztername oda Paswoat falsch"));
+                  title: new Text("Benuztername oder Passwort nicht nicht falsch"));
             });
       }
     });
     if (_loginSuccess) {
-      Navigator.pushNamed(context, 'rooms');
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return RoomsPage(username : _username); // passing data to chat room
+      }));
       _loginMesibo(_username);
     }
   }

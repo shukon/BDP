@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:bdp_app/chat/ChatMessage.dart';
+import 'package:bdp_app/chat/ChatScreen.dart';
 
 
 
@@ -11,32 +13,15 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
-  _backButtonPressed() {
-    Navigator.pop(context);
-  }
-
-
 
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("BDP Test App"),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text("chatpage"),
-            IconButton(
-                icon: Icon(Icons.arrow_back),
-                onPressed: () {
-                  _backButtonPressed();
-                }),
-          ],
+    return new Scaffold(
+        appBar: new AppBar(
+          title: new Text("Chat App"),
         ),
-      ),
+        body: new ChatScreen()
     );
   }
 }
