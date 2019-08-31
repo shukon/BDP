@@ -51,7 +51,6 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> _loginMesibo(String username) async {
     try {
-      final int result =
       await platform.invokeMethod('login', {"email": username});
     } on PlatformException catch (e) {
       print("Something utterly wrong: '${e.message}'.");
