@@ -12,15 +12,20 @@ import io.flutter.plugins.GeneratedPluginRegistrant
 
 class MainActivity: FlutterActivity() {
   private var mesiboApi: MesiboApi? = null
-  private val messageStore = MessageStore()
+  private var messageStore : MessageStore? = null
   private val gson: Gson = GsonBuilder().create()
+
   override fun onCreate(savedInstanceState: Bundle?) {
     Log.w("TAG", "Starting Android")
-    Mesibo.STATUS_ACTIVITY
     super.onCreate(savedInstanceState)
     GeneratedPluginRegistrant.registerWith(this)
+    val messageDatabase = MessageDatabase.getDatabase(this)
+    val ms = MessageStore(messageDatabase?.messageDao())
+    val api = Mesibo.getInstance()
+    api.init(this)
 
-    mesiboApi = MesiboApi(MesiboListener(FlutterInformer(flutterView), messageStore), this)
+    mesiboApi = MesiboApi(MesiboListener(FlutterInformer(flutterView), ms), ms)
+    messageStore = ms
     setupMethodChannels()
   }
 
@@ -50,13 +55,13 @@ class MainActivity: FlutterActivity() {
           mesiboApi?.sendMessage(message, destination)
         }
         "get-conversations" -> {
-          val conversationIds = messageStore.getConversationIds()
+          val conversationIds = messageStore?.getConversationIds()
           result.success(gson.toJson(conversationIds))
         }
         "get-messages" -> {
           val id = call.argument<String>("id")
           id?.let {
-            val messages = messageStore.getMessagesFor(id)
+            val messages = messageStore?.getMessagesFor(id)
             return@setMethodCallHandler result.success(gson.toJson(messages))
           }
           result.error("FAILED", "No id specified", null)

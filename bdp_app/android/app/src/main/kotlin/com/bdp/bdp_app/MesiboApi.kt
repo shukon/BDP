@@ -1,19 +1,23 @@
 package com.bdp.bdp_app
 
-import android.content.Context
 import android.os.AsyncTask
 import com.mesibo.api.Mesibo
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONObject
 
-
-class MesiboApi(private val mesiboListener: MesiboListener, private val context: Context) {
+class MesiboApi(private val mesiboListener: MesiboListener,
+                private val messageStore: MessageStore) {
+    private var userName: String = ""
+    private var userId: String = ""
     internal var token: String = ""
     private val baseUrl = "https://api.mesibo.com/api.php?token=i1tazh3do9atrbozm0xojobku10ggi6zmtzmpytc6otoqs4thy3od3t1ef49a8ob&appid=com.bdp.bdp_app"
 
     fun login(email: String): Boolean {
         val url = "$baseUrl&op=useradd&addr=$email"
+        this.userName = email
+        this.userId = email
+        mesiboListener.userId = email
         LoginTask(this).execute(url)
         return true
     }
@@ -25,20 +29,11 @@ class MesiboApi(private val mesiboListener: MesiboListener, private val context:
 
     fun startMesibo() {
 
-        val api = Mesibo.getInstance()
-        api.init(this.context)
-
         Mesibo.addListener(this.mesiboListener)
 
         // set user authentication token obtained by creating user
         Mesibo.setAccessToken(token)
-        Mesibo.setDatabase("", 0)
         Mesibo.start()
-    }
-
-    fun readMessages() {
-        val readDbSession = Mesibo.ReadDbSession("Test_1", mesiboListener)
-        readDbSession.read(100000)
     }
 
     fun sendMessage(text: String, destination: String) {
@@ -48,7 +43,9 @@ class MesiboApi(private val mesiboListener: MesiboListener, private val context:
             messageParams.groupid = groupid
         else
             messageParams.peer = destination
-        Mesibo.sendMessage(messageParams, Mesibo.random(), text)
+        val id = Mesibo.random()
+        Mesibo.sendMessage(messageParams, id, text)
+        messageStore.storeMessage(Message(text, id, groupid, this.userId, this.userName, destination))
     }
 
     fun createGroup(name: String) {
@@ -90,7 +87,6 @@ private class LoginTask(val mesiboApi: MesiboApi): AsyncTask<String, Void, Strin
         tokenResult?.let {
             mesiboApi.token = it
             mesiboApi.startMesibo()
-            mesiboApi.readMessages()
         }
     }
 }

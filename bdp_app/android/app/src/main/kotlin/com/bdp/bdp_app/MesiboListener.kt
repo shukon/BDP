@@ -3,9 +3,11 @@ package com.bdp.bdp_app
 import com.mesibo.api.Mesibo
 import io.flutter.Log
 
-class MesiboListener (private val flutterInformer: FlutterInformer,
-                      private val messageStore: MessageStore):
+class MesiboListener(private val flutterInformer: FlutterInformer,
+                     private val messageStore: MessageStore):
         Mesibo.MessageListener, Mesibo.ConnectionListener {
+
+    var userId: String = ""
 
     override fun Mesibo_onConnectionStatus(status: Int) {
         val text = "on Mesibo Connection: $status"
@@ -22,7 +24,8 @@ class MesiboListener (private val flutterInformer: FlutterInformer,
                 id = params.mid,
                 groupId = groupId,
                 senderId = params.profile.address,
-                senderName = params.profile.name)
+                senderName = params.profile.name,
+                destination = this.userId)
         flutterInformer.notifyMessage(message)
         messageStore.storeMessage(message)
         return true
@@ -44,9 +47,3 @@ class MesiboListener (private val flutterInformer: FlutterInformer,
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
-
-data class Message(val text: String,
-                   val id: Long,
-                   val groupId: Long?,
-                   val senderId: String,
-                   val senderName: String)
