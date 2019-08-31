@@ -35,6 +35,10 @@ class MainActivity: FlutterActivity() {
           }
           result.error("FAILED", "Could not log in", null)
         }
+        "logout" -> {
+          mesiboApi?.logout()
+          result.success(true)
+        }
         // Send message to destination
         // If destination is a Long, it is interpreted as a group message, otherwise it is a 1 on 1 message
         "send-message" -> {
@@ -55,6 +59,28 @@ class MainActivity: FlutterActivity() {
             return@setMethodCallHandler result.success(gson.toJson(messages))
           }
           result.error("FAILED", "No id specified", null)
+        }
+        "create-group" -> {
+          val name = call.argument<String>("name")
+          name?.let {
+            mesiboApi?.createGroup("name")
+            return@setMethodCallHandler result.success(true)
+          }
+          result.error("FAILED", "No group name specified", null)
+        }
+        "add-from-group" -> {
+          val group = call.argument<String>("groupId")
+                  ?: return@setMethodCallHandler result.error("FAILED", "No group id specified", null)
+          val user = call.argument<String>("userId")
+                  ?: return@setMethodCallHandler result.error("FAILED", "No user id specified", null)
+          mesiboApi?.addToGroup(group, user)
+        }
+        "remove-from-group" -> {
+          val group = call.argument<String>("groupId")
+                  ?: return@setMethodCallHandler result.error("FAILED", "No group id specified", null)
+          val user = call.argument<String>("userId")
+                  ?: return@setMethodCallHandler result.error("FAILED", "No user id specified", null)
+          mesiboApi?.removeFromGroup(group, user)
         }
         else -> result.notImplemented()
       }
