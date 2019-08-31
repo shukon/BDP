@@ -15,7 +15,14 @@ class MesiboListener (private val flutterInformer: FlutterInformer):
     override fun Mesibo_onMessage(params: Mesibo.MessageParams, data: ByteArray): Boolean {
         val dataString = String(data)
         Log.e("TAG", "on Mesibo Message: $params and $dataString")
-        flutterInformer.notifyMessage(params, dataString)
+        val groupId = if (params.groupid != 0L) params.groupid else null
+        val message = Message(
+                text = String(data),
+                id = params.mid,
+                groupId = groupId,
+                senderId = params.profile.address,
+                senderName = params.profile.name)
+        flutterInformer.notifyMessage(message)
         return true
     }
 
@@ -35,3 +42,9 @@ class MesiboListener (private val flutterInformer: FlutterInformer):
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
+
+data class Message(val text: String,
+                   val id: Long,
+                   val groupId: Long?,
+                   val senderId: String,
+                   val senderName: String)
