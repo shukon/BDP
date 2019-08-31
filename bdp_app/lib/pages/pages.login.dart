@@ -14,7 +14,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _usernameFilter = new TextEditingController();
   final TextEditingController _passwordFilter = new TextEditingController();
 
-  static const platform = const MethodChannel("com.bdp.bdp_app/login");
+  static const platform = const MethodChannel("com.bdp.bdp_app/mesibo");
 
   String _username = "";
   String _password = "";
