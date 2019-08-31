@@ -22,10 +22,7 @@ void main() {
         primarySwatch: Colors.deepOrange,
       ),
       home : LoginPage(),
-      routes: <String, WidgetBuilder>{
-        'rooms': (BuildContext context) => new RoomsPage(),
-        'chat': (BuildContext context) => new ChatPage(),
-      })
+      )
   );
 }
 

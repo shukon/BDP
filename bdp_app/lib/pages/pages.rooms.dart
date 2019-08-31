@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:bdp_app/pages/pages.chat.dart';
 
 class RoomsPage extends StatefulWidget {
-  RoomsPage({Key key, this.title, this.username}) : super(key: key);
-  final String title;
+  RoomsPage({Key key, this.username}) : super(key: key);
   final String username;
 
   @override
@@ -12,12 +11,6 @@ class RoomsPage extends StatefulWidget {
 }
 
 class _RoomsPageState extends State<RoomsPage> {
-  List _chatItems = [
-    Text("Stefan"),
-    Text("Thorsten"),
-    Text("Shuki"),
-    Text("Appsperten")
-  ];
 
   final _tabs = <Widget>[
     Tab(icon: Icon(Icons.camera_alt)),
@@ -40,7 +33,7 @@ Widget build(BuildContext context) {
           body: TabBarView(
             children: <Widget>[
               Text('camera'),
-              ChatList(),
+              ChatList(username : widget.username),
               Text('status'),
               Text('calls'),
             ],
@@ -87,7 +80,7 @@ class ChatList extends StatelessWidget {
             title: Text(_chatItems[index]['name']),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return ChatPage(/*_chatItems[index]*/); // passing data to chat room
+                return ChatPage(username : username, chatID :_chatItems[index]['name']); // passing data to chat room
               }));
             });
       },

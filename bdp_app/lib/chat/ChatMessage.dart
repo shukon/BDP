@@ -1,49 +1,50 @@
 import 'package:flutter/material.dart';
 
-String _ownName = "stefan";
-
-String name = "Gast";
-
 class ChatMessage extends StatelessWidget {
-  final String text ;
-  //for opotional params we use curly braces
-  ChatMessage(String author, {this.text}){
-    name = author;
-  }
+  ChatMessage({Key key, this.username, this.sendername, this.text})
+      : super(key: key);
+  final String username;
+  final String sendername;
+  final String text;
 
-  String getName(){
-    return name;
+  String getSenderName() {
+    return sendername;
   }
 
   @override
   Widget build(BuildContext context) {
-    if (name == _ownName){
-    return new Container(
+    print("Username = " + "Test");
+    print("Username = " + username);
+    print("Sendername = " + sendername);
+    print("text = " + text);
 
-      margin: const EdgeInsets.symmetric(vertical: 10.0),
-      child: new Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          new Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              new Text(name,style: Theme.of(context).textTheme.subhead),
-              new Container(
-                margin: const EdgeInsets.only(top: 5.0),
-                child: new Text(text),
-              )
-
-            ],
-          ),
-          new Container(
-            margin: const EdgeInsets.only(left: 16.0),
-            child: new CircleAvatar(
-              child: new Text(name[0]),
+    if (username == sendername) {
+      return new Container(
+        margin: const EdgeInsets.symmetric(vertical: 10.0),
+        child: new Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            new Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                new Text(sendername,
+                    style: Theme.of(context).textTheme.subhead),
+                new Container(
+                  margin: const EdgeInsets.only(top: 5.0),
+                  child: new Text(text),
+                )
+              ],
             ),
-          ),
-        ],
-      ),
-    );}else{
+            new Container(
+              margin: const EdgeInsets.only(left: 16.0),
+              child: new CircleAvatar(
+                child: new Text(sendername[0]),
+              ),
+            ),
+          ],
+        ),
+      );
+    } else {
       return new Container(
         margin: const EdgeInsets.symmetric(vertical: 10.0),
         child: new Row(
@@ -52,13 +53,14 @@ class ChatMessage extends StatelessWidget {
             new Container(
               margin: const EdgeInsets.only(right: 16.0),
               child: new CircleAvatar(
-                child: new Text(name[0]),
+                child: new Text(sendername[0]),
               ),
             ),
             new Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
-                new Text(name,style: Theme.of(context).textTheme.subhead),
+                new Text(sendername,
+                    style: Theme.of(context).textTheme.subhead),
                 new Container(
                   margin: const EdgeInsets.only(top: 5.0),
                   child: new Text(text),

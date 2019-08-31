@@ -1,28 +1,129 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:bdp_app/chat/ChatMessage.dart';
-import 'package:bdp_app/chat/ChatScreen.dart';
-
-
+import 'package:flutter/services.dart';
 
 class ChatPage extends StatefulWidget {
-  ChatPage({Key key, this.title}) : super(key: key);
-  final String title;
+  ChatPage({Key key, this.username, this.chatID}) : super(key: key);
+  final String username;
+  final String chatID;
 
   @override
   _ChatPageState createState() => _ChatPageState();
 }
 
 class _ChatPageState extends State<ChatPage> {
+  final TextEditingController textEditingController =
+      new TextEditingController();
+  final List<ChatMessage> _messages = <ChatMessage>[];
 
+  static const messageListener =
+  const EventChannel("com.bdp.bdp_app/message-received");
+  static const messageSender =
+  const MethodChannel("com.bdp.bdp_app/mesibo");
+
+  Future<void> _getMessages() async {
+    await messageListener.receiveBroadcastStream().listen((dynamic event) {
+      print(event);
+      var message = jsonDecode(event);
+      _messages.insert(
+          0,
+          new ChatMessage(
+              username: widget.username,
+              sendername: message["senderName"],
+              text: message["text"]));
+    }, onError: (dynamic error) {
+      print(error);
+    });
+    setState(() {
+
+    });
+  }
+
+  Future<void> _sendMessage(String message, String destination) async {
+    try {
+      await messageSender.invokeMethod('send-message', {"message": message, "destination" : destination});
+    } on PlatformException catch (e) {
+      print("Something utterly wrong: '${e.message}'.");
+    }
+  }
+
+  void _handleSubmit(String text) {
+    textEditingController.clear();
+    print("Widget username: " + widget.username);
+    ChatMessage chatMessage = new ChatMessage(
+        username: widget.username, sendername: widget.username, text: text);
+    //TODO: send message on mesibo
+    _sendMessage(text, widget.chatID);
+    setState(() {
+      //used to rebuild our widget
+      _messages.insert(0, chatMessage);
+    });
+  }
+
+  Widget _textComposerWidget() {
+    return new IconTheme(
+      data: new IconThemeData(color: Colors.blue),
+      child: new Container(
+        margin: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: new Row(
+          children: <Widget>[
+            new Flexible(
+              child: new TextField(
+                decoration: new InputDecoration.collapsed(
+                    hintText: "Enter your message"),
+                controller: textEditingController,
+                onSubmitted: _handleSubmit,
+              ),
+            ),
+            new Container(
+              margin: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: new IconButton(
+                icon: new Icon(Icons.send),
+                onPressed: () => _handleSubmit(textEditingController.text),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-        appBar: new AppBar(
-          title: new Text("Chat App"),
+    _getMessages();
+    return Scaffold(
+        body: Center(
+            child: new Column(
+      children: <Widget>[
+        new Flexible(
+          child: new ListView.builder(
+            padding: new EdgeInsets.all(8.0),
+            reverse: true,
+            itemBuilder: (content, int index) {
+              //if message is from myself, print on right side, else on left side
+              if (_messages[index].getSenderName() == widget.username) {
+                return new Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[_messages[index]]);
+              } else {
+                return _messages[index];
+              }
+            },
+            itemCount: _messages.length,
+          ),
         ),
-        body: new ChatScreen()
-    );
+        new Divider(
+          height: 1.0,
+        ),
+        new Container(
+          decoration: new BoxDecoration(
+            color: Theme.of(context).cardColor,
+          ),
+          child: _textComposerWidget(),
+        )
+      ],
+    )));
   }
 }
-
