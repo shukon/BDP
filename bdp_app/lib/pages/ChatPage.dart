@@ -19,16 +19,34 @@ class _ChatPageState extends State<ChatPage> {
   final TextEditingController textEditingController =
       new TextEditingController();
   final List<ChatMessage> _messages = <ChatMessage>[];
+  int _connectionStatus = -1;
 
   static const messageListener =
   const EventChannel("com.bdp.bdp_app/message-received");
   static const messageSender =
   const MethodChannel("com.bdp.bdp_app/mesibo");
+  static const connectionListener =
+  const EventChannel("com.bdp.bdp_app/connection-status");
+
 
   @override
   void initState() {
     _getMessages();
+    _getConnectionStatus();
     super.initState();
+  }
+
+  bool _getConnectionStatus() {
+    connectionListener.receiveBroadcastStream().listen((dynamic event) {
+      print("Connection status changed!");
+      print(event);
+      _connectionStatus = event;
+      //hierdurch wird build ausgeführt
+      setState(() {
+      });
+    }, onError: (dynamic error) {
+      print(error);
+    });
   }
 
   void _getMessages() {
@@ -108,6 +126,11 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          title: Text(widget.chatID),
+          backgroundColor: (_connectionStatus == 1) ? Colors.green : Colors.red,
+          flexibleSpace: Text("Connection status: " + _connectionStatus.toString()),
+        ),
         body: Center(
             child: new Column(
       children: <Widget>[

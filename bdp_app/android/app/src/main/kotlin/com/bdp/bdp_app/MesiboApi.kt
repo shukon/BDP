@@ -48,7 +48,7 @@ class MesiboApi(private val mesiboListener: MesiboListener, private val context:
             messageParams.groupid = groupid
         else
             messageParams.peer = destination
-        Mesibo.sendMessage(messageParams, Mesibo.random(), text)
+        Mesibo.sendMessage(messageParams, Mesibo.getTimestamp(), text)
     }
 
     fun createGroup(name: String) {
