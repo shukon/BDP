@@ -3,6 +3,7 @@ package com.bdp.bdp_app
 import android.os.Bundle
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.mesibo.api.Mesibo
 import io.flutter.Log
 
 import io.flutter.app.FlutterActivity
@@ -13,9 +14,9 @@ class MainActivity: FlutterActivity() {
   private var mesiboApi: MesiboApi? = null
   private val messageStore = MessageStore()
   private val gson: Gson = GsonBuilder().create()
-
   override fun onCreate(savedInstanceState: Bundle?) {
     Log.w("TAG", "Starting Android")
+    Mesibo.STATUS_ACTIVITY
     super.onCreate(savedInstanceState)
     GeneratedPluginRegistrant.registerWith(this)
 
