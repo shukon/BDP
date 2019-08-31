@@ -56,6 +56,14 @@ class MainActivity: FlutterActivity() {
           }
           result.error("FAILED", "No id specified", null)
         }
+        "create-group" -> {
+          val name = call.argument<String>("name")
+          name?.let {
+            mesiboApi?.createGroup("name")
+            return@setMethodCallHandler result.success(true)
+          }
+          result.error("FAILED", "No group name specified", null)
+        }
         else -> result.notImplemented()
       }
     }

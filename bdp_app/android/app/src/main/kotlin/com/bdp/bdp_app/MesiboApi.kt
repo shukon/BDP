@@ -10,9 +10,10 @@ import org.json.JSONObject
 
 class MesiboApi(private val mesiboListener: MesiboListener, private val context: Context) {
     internal var token: String = ""
+    private val baseUrl = "https://api.mesibo.com/api.php?token=i1tazh3do9atrbozm0xojobku10ggi6zmtzmpytc6otoqs4thy3od3t1ef49a8ob&appid=com.bdp.bdp_app"
 
     fun login(email: String): Boolean {
-        val url = "https://api.mesibo.com/api.php?token=i1tazh3do9atrbozm0xojobku10ggi6zmtzmpytc6otoqs4thy3od3t1ef49a8ob&op=useradd&appid=com.bdp.bdp_app&addr=$email"
+        val url = "$baseUrl&op=useradd&addr=$email"
         LoginTask(this).execute(url)
         return true
     }
@@ -44,6 +45,12 @@ class MesiboApi(private val mesiboListener: MesiboListener, private val context:
             messageParams.peer = destination
         Mesibo.sendMessage(messageParams, Mesibo.random(), text)
     }
+
+    fun createGroup(name: String) {
+        val expiry = 315360000
+        val url = "$baseUrl&op=groupadd&name=$name&expiry=$expiry"
+        CreateGroupTask(this).execute(url)
+    }
 }
 
 private class LoginTask(val mesiboApi: MesiboApi): AsyncTask<String, Void, String>() {
@@ -64,11 +71,36 @@ private class LoginTask(val mesiboApi: MesiboApi): AsyncTask<String, Void, Strin
         }
     }
 
-    override fun onPostExecute(result: String?) {
-        result?.let {
+    override fun onPostExecute(tokenResult: String?) {
+        tokenResult?.let {
             mesiboApi.token = it
             mesiboApi.startMesibo()
             mesiboApi.readMessages()
+        }
+    }
+}
+
+private class CreateGroupTask(val mesiboApi: MesiboApi): AsyncTask<String, Void, String>() {
+
+    override fun doInBackground(vararg params: String): String? {
+        return try {
+            val client = OkHttpClient()
+            val request = Request.Builder()
+                    .url(params[0])
+                    .build()
+            val response = client.newCall(request).execute()
+            val resStr = response.body?.string()
+            val json = JSONObject(resStr)
+            json.getJSONObject("group").getString("gid")
+        } catch (exception: Exception) {
+            exception.printStackTrace()
+            null
+        }
+    }
+
+    override fun onPostExecute(groupIdResult: String?) {
+        groupIdResult?.let {
+            mesiboApi.sendMessage("Gruppe erstellt", groupIdResult)
         }
     }
 }
