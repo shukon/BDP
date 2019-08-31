@@ -18,6 +18,11 @@ class MesiboApi(private val mesiboListener: MesiboListener, private val context:
         return true
     }
 
+    fun logout() {
+        Mesibo.stop(false)
+    }
+
+
     fun startMesibo() {
 
         val api = Mesibo.getInstance()

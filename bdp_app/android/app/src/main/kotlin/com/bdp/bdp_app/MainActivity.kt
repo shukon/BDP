@@ -35,6 +35,10 @@ class MainActivity: FlutterActivity() {
           }
           result.error("FAILED", "Could not log in", null)
         }
+        "logout" -> {
+          mesiboApi?.logout()
+          result.success(true)
+        }
         // Send message to destination
         // If destination is a Long, it is interpreted as a group message, otherwise it is a 1 on 1 message
         "send-message" -> {
