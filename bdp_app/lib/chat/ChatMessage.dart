@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bdp_app/chat/bubble.dart';
 
 class ChatMessage extends StatelessWidget {
   ChatMessage({Key key, this.username, this.sendername, this.text})
@@ -19,16 +20,17 @@ class ChatMessage extends StatelessWidget {
       return new Container(
         margin: const EdgeInsets.symmetric(vertical: 10.0),
         child: new Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
             new Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                 new Text(sendername,
                     style: Theme.of(context).textTheme.subhead),
                 new Container(
                   margin: const EdgeInsets.only(top: 5.0),
-                  child: new Text(text),
+                  child: new Bubble(child: Text(text, maxLines: 20,),  nip: BubbleNip.rightTop, color: Colors.lightGreen),
+                  constraints: BoxConstraints(maxWidth: 200),
                 )
               ],
             ),
@@ -45,7 +47,7 @@ class ChatMessage extends StatelessWidget {
       return new Container(
         margin: const EdgeInsets.symmetric(vertical: 10.0),
         child: new Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             new Container(
               margin: const EdgeInsets.only(right: 16.0),
@@ -54,13 +56,14 @@ class ChatMessage extends StatelessWidget {
               ),
             ),
             new Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 new Text(sendername,
                     style: Theme.of(context).textTheme.subhead),
                 new Container(
                   margin: const EdgeInsets.only(top: 5.0),
-                  child: new Text(text),
+                  constraints: BoxConstraints(maxWidth: 200),
+                  child: new Bubble(child: Text(text, maxLines: 20,), nip: BubbleNip.leftTop),
                 )
               ],
             )
