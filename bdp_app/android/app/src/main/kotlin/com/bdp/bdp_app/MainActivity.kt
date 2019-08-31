@@ -88,6 +88,9 @@ class MainActivity: FlutterActivity() {
                   ?: return@setMethodCallHandler result.error("FAILED", "No user id specified", null)
           mesiboApi?.removeFromGroup(group, user)
         }
+        "get-connection-status" -> {
+          return@setMethodCallHandler result.success(mesiboApi?.getConnectionStatus());
+        }
         else -> result.notImplemented()
       }
     }

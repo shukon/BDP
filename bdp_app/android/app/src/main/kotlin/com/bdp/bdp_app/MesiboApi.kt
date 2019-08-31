@@ -26,7 +26,6 @@ class MesiboApi(private val mesiboListener: MesiboListener,
         Mesibo.stop(false)
     }
 
-
     fun startMesibo() {
 
         Mesibo.addListener(this.mesiboListener)
@@ -62,6 +61,10 @@ class MesiboApi(private val mesiboListener: MesiboListener,
     fun removeFromGroup(group: String, user: String) {
         val url = "$baseUrl&op=groupeditmembers&delete=1&m=$user&gid=$group"
         ChangeGroupMembershipTask().execute(url)
+    }
+
+    fun getConnectionStatus() : Int {
+        return Mesibo.getConnectionStatus();
     }
 }
 

@@ -133,14 +133,16 @@ class _LoginPageState extends State<LoginPage> {
           color: Colors.deepOrange,
           onPressed: () {
             _loginButtonPressed();
-          },
-/*
+          },)
+          ,
     RaisedButton(
-    child: Text("Anmelden"),
+    child: Text("Schnell-Anmelden"),
     color: Colors.deepOrange,
     onPressed: () {
+      _username = "shuki";
+      _password = "aaa";
     _loginButtonPressed();
-    },*/
+    },
         ),
       ],
     );

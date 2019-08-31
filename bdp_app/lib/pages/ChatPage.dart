@@ -9,34 +9,44 @@ class ChatPage extends StatefulWidget {
   final String username;
   final String chatID;
 
-
-
   @override
   _ChatPageState createState() => _ChatPageState();
 }
 
 class _ChatPageState extends State<ChatPage> {
+
   final TextEditingController textEditingController =
       new TextEditingController();
   final List<ChatMessage> _messages = <ChatMessage>[];
-  int _connectionStatus = -1;
 
+  static const mesiboMethodChannel =
+  const MethodChannel("com.bdp.bdp_app/mesibo");
   static const messageListener =
   const EventChannel("com.bdp.bdp_app/message-received");
-  static const messageSender =
-  const MethodChannel("com.bdp.bdp_app/mesibo");
   static const connectionListener =
   const EventChannel("com.bdp.bdp_app/connection-status");
 
+  Future<void> _setConnectionStatus() async {
+    // gets connection status from mesibo
+    try {
+      var status = await mesiboMethodChannel.invokeMethod('get-connection-status');
+      _connectionStatus = status;
+    } on PlatformException catch (e) {
+      print("Something utterly wrong: '${e.message}'.");
+    }
+  }
+
+  int _connectionStatus;
 
   @override
   void initState() {
     _getMessages();
-    _getConnectionStatus();
+    _listenConnectionStatus();
+    _setConnectionStatus();
     super.initState();
   }
 
-  bool _getConnectionStatus() {
+  bool _listenConnectionStatus() {
     connectionListener.receiveBroadcastStream().listen((dynamic event) {
       print("Connection status changed!");
       print(event);
@@ -76,7 +86,7 @@ class _ChatPageState extends State<ChatPage> {
   void _sendMessage(String message, String destination) {
     print("Trying to send message " + message + " TO: " + destination);
     try {
-      messageSender.invokeMethod('send-message', {"message": message, "destination" : destination});
+      mesiboMethodChannel.invokeMethod('send-message', {"message": message, "destination" : destination});
     } on PlatformException catch (e) {
       print("Something utterly wrong: '${e.message}'.");
     }
@@ -125,6 +135,8 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
+    _setConnectionStatus();
+
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.chatID),
