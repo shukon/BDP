@@ -64,6 +64,20 @@ class MainActivity: FlutterActivity() {
           }
           result.error("FAILED", "No group name specified", null)
         }
+        "add-from-group" -> {
+          val group = call.argument<String>("groupId")
+                  ?: return@setMethodCallHandler result.error("FAILED", "No group id specified", null)
+          val user = call.argument<String>("userId")
+                  ?: return@setMethodCallHandler result.error("FAILED", "No user id specified", null)
+          mesiboApi?.addToGroup(group, user)
+        }
+        "remove-from-group" -> {
+          val group = call.argument<String>("groupId")
+                  ?: return@setMethodCallHandler result.error("FAILED", "No group id specified", null)
+          val user = call.argument<String>("userId")
+                  ?: return@setMethodCallHandler result.error("FAILED", "No user id specified", null)
+          mesiboApi?.removeFromGroup(group, user)
+        }
         else -> result.notImplemented()
       }
     }

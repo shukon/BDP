@@ -51,6 +51,16 @@ class MesiboApi(private val mesiboListener: MesiboListener, private val context:
         val url = "$baseUrl&op=groupadd&name=$name&expiry=$expiry"
         CreateGroupTask(this).execute(url)
     }
+
+    fun addToGroup(group: String, user: String) {
+        val url = "$baseUrl&op=groupeditmembers&delete=0&m=$user&gid=$group"
+        ChangeGroupMembershipTask().execute(url)
+    }
+
+    fun removeFromGroup(group: String, user: String) {
+        val url = "$baseUrl&op=groupeditmembers&delete=1&m=$user&gid=$group"
+        ChangeGroupMembershipTask().execute(url)
+    }
 }
 
 private class LoginTask(val mesiboApi: MesiboApi): AsyncTask<String, Void, String>() {
@@ -101,6 +111,25 @@ private class CreateGroupTask(val mesiboApi: MesiboApi): AsyncTask<String, Void,
     override fun onPostExecute(groupIdResult: String?) {
         groupIdResult?.let {
             mesiboApi.sendMessage("Gruppe erstellt", groupIdResult)
+        }
+    }
+}
+
+private class ChangeGroupMembershipTask: AsyncTask<String, Void, String>() {
+
+    override fun doInBackground(vararg params: String): String? {
+        return try {
+            val client = OkHttpClient()
+            val request = Request.Builder()
+                    .url(params[0])
+                    .build()
+            val response = client.newCall(request).execute()
+            val resStr = response.body?.string()
+            val json = JSONObject(resStr)
+            json.getJSONObject("group").getString("gid")
+        } catch (exception: Exception) {
+            exception.printStackTrace()
+            null
         }
     }
 }
