@@ -13,10 +13,7 @@ class ChatMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("Username = " + "Test");
-    print("Username = " + username);
-    print("Sendername = " + sendername);
-    print("text = " + text);
+    print("Username = " + username + " Sendername = " + sendername + " text = " + text);
 
     if (username == sendername) {
       return new Container(

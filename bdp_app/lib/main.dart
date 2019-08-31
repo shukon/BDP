@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 
-import 'package:bdp_app/pages/pages.login.dart';
-import 'package:bdp_app/pages/pages.rooms.dart';
-import 'package:bdp_app/pages/pages.chat.dart';
+import 'package:bdp_app/pages/LoginPage.dart';
+import 'package:bdp_app/pages/RoomsPage.dart';
+import 'package:bdp_app/pages/ChatPage.dart';
 //void main() => runApp(MyApp());
 
 void main() {

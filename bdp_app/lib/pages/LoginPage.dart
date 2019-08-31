@@ -1,4 +1,4 @@
-import 'package:bdp_app/pages/pages.rooms.dart';
+import 'package:bdp_app/pages/RoomsPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -134,6 +134,13 @@ class _LoginPageState extends State<LoginPage> {
           onPressed: () {
             _loginButtonPressed();
           },
+/*
+    RaisedButton(
+    child: Text("Anmelden"),
+    color: Colors.deepOrange,
+    onPressed: () {
+    _loginButtonPressed();
+    },*/
         ),
       ],
     );

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:bdp_app/pages/pages.chat.dart';
+import 'package:bdp_app/pages/ChatPage.dart';
 
 class RoomsPage extends StatefulWidget {
   RoomsPage({Key key, this.username}) : super(key: key);

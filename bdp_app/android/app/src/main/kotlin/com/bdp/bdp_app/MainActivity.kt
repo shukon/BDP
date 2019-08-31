@@ -3,7 +3,6 @@ package com.bdp.bdp_app
 import android.os.Bundle
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.mesibo.api.Mesibo
 import io.flutter.Log
 
 import io.flutter.app.FlutterActivity
