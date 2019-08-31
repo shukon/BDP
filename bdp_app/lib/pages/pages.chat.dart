@@ -12,9 +12,7 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   _backButtonPressed() {
-    setState(() {
-      _activePage = "LoginPage";
-    });
+    Navigator.pushNamed(context, 'rooms');
   }
 
 

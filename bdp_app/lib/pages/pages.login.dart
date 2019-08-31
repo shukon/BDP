@@ -47,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  String _loginSuccess = "login failed";
+  bool _loginSuccess = false;
 
   Future<void> _loginMesibo(String username) async {
     try {
@@ -61,10 +61,9 @@ class _LoginPageState extends State<LoginPage> {
   Future _loginButtonPressed() async {
     setState(() {
       if (_username == "stefan" && _password == "1234") {
-        _loginSuccess = "erfolgreich angemeldet als stefan";
+        _loginSuccess = true;
         //Navigator.pushNamed(context, 'rooms');
-        print("lala");
-        _loginMesibo(_username);
+        //_loginMesibo(_username);
       } else {
         showDialog(
             context: context,
@@ -75,9 +74,10 @@ class _LoginPageState extends State<LoginPage> {
             });
       }
     });
-
-    Navigator.pushNamed(context, 'rooms');
-
+    if (_loginSuccess) {
+      Navigator.pushNamed(context, 'rooms');
+      _loginMesibo(_username);
+    }
   }
 
   @override

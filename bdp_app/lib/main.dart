@@ -6,8 +6,6 @@ import 'package:bdp_app/pages/pages.rooms.dart';
 import 'package:bdp_app/pages/pages.chat.dart';
 //void main() => runApp(MyApp());
 
-String _activePage = "k";
-
 void main() {
   runApp(MaterialApp(
       title: 'Flutter Demo',
@@ -26,6 +24,7 @@ void main() {
       home : LoginPage(),
       routes: <String, WidgetBuilder>{
         'rooms': (BuildContext context) => new RoomsPage(),
+        'chat': (BuildContext context) => new ChatPage(),
       })
   );
 }
