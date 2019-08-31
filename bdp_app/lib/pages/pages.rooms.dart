@@ -10,14 +10,12 @@ class RoomsPage extends StatefulWidget {
 
 class _RoomsPageState extends State<RoomsPage> {
   Future _roomsButtonPressed() async {
-    setState(() {
-      _activePage = "ChatPage";
-    });
+    Navigator.pushNamed(context, "chat");
   }
 
   _backButtonPressed() {
     setState(() {
-      _activePage = "LoginPage";
+      Navigator.pop(context);
     });
   }
 
