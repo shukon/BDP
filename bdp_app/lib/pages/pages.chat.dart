@@ -9,6 +9,8 @@ class ChatPage extends StatefulWidget {
   final String username;
   final String chatID;
 
+
+
   @override
   _ChatPageState createState() => _ChatPageState();
 }
@@ -24,6 +26,8 @@ class _ChatPageState extends State<ChatPage> {
   const MethodChannel("com.bdp.bdp_app/mesibo");
 
   Future<void> _getMessages() async {
+
+    //warte auf neue Nachricht aus dem Netzwerk
     await messageListener.receiveBroadcastStream().listen((dynamic event) {
       print(event);
       var message = jsonDecode(event);
@@ -33,12 +37,16 @@ class _ChatPageState extends State<ChatPage> {
               username: widget.username,
               sendername: message["senderName"],
               text: message["text"]));
-    }, onError: (dynamic error) {
+
+      //hierdurch wird build ausgeführt
+      setState(() {
+
+      });
+
+      }, onError: (dynamic error) {
       print(error);
     });
-    setState(() {
 
-    });
   }
 
   Future<void> _sendMessage(String message, String destination) async {
