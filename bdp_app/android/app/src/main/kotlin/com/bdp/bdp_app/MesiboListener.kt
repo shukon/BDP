@@ -9,8 +9,8 @@ class MesiboListener (private val flutterInformer: FlutterInformer,
 
     override fun Mesibo_onConnectionStatus(status: Int) {
         val text = "on Mesibo Connection: $status"
-        Mesibo.STATUS_ACTIVITY
         Log.w("TAG", text)
+        flutterInformer.notifyConnectionStatus(status)
     }
 
     override fun Mesibo_onMessage(params: Mesibo.MessageParams, data: ByteArray): Boolean {
