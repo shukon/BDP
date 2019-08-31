@@ -9,50 +9,66 @@ import org.json.JSONObject
 
 
 class MesiboApi(private val mesiboListener: MesiboListener, private val context: Context) {
-  internal var token: String = ""
+    internal var token: String = ""
 
-  fun login(email: String): Boolean {
-    val url = "https://api.mesibo.com/api.php?token=i1tazh3do9atrbozm0xojobku10ggi6zmtzmpytc6otoqs4thy3od3t1ef49a8ob&op=useradd&appid=com.bdp.bdp_app&addr=$email"
-    LoginTask(this).execute(url)
-    return true
-  }
+    fun login(email: String): Boolean {
+        val url = "https://api.mesibo.com/api.php?token=i1tazh3do9atrbozm0xojobku10ggi6zmtzmpytc6otoqs4thy3od3t1ef49a8ob&op=useradd&appid=com.bdp.bdp_app&addr=$email"
+        LoginTask(this).execute(url)
+        return true
+    }
 
-  fun startMesibo() {
+    fun startMesibo() {
 
+        val api = Mesibo.getInstance()
+        api.init(this.context)
 
-    val api = Mesibo.getInstance()
-    api.init(this.context)
+        Mesibo.addListener(this.mesiboListener)
 
-    Mesibo.addListener(this.mesiboListener)
+        // set user authentication token obtained by creating user
+        Mesibo.setAccessToken(token)
+        Mesibo.setDatabase("", 0)
+        Mesibo.start()
+    }
 
-    // set user authentication token obtained by creating user
-    Mesibo.setAccessToken(token)
-    Mesibo.start()
-  }
+    fun readMessages() {
+        val readDbSession = Mesibo.ReadDbSession("Test_1", mesiboListener)
+        readDbSession.read(100000)
+    }
+
+    fun sendMessage(text: String, destination: String) {
+        val messageParams = Mesibo.MessageParams()
+        val groupid = destination.toLongOrNull()
+        if (groupid != null)
+            messageParams.groupid = groupid
+        else
+            messageParams.peer = destination
+        Mesibo.sendMessage(messageParams, Mesibo.random(), text)
+    }
 }
 
 private class LoginTask(val mesiboApi: MesiboApi): AsyncTask<String, Void, String>() {
 
-  override fun doInBackground(vararg params: String): String? {
-    return try {
-      val client = OkHttpClient()
-      val request = Request.Builder()
-              .url(params[0])
-              .build()
-      val response = client.newCall(request).execute()
-      val resStr = response.body?.string()
-      val json = JSONObject(resStr)
-      json.getJSONObject("user").getString("token")
-    } catch (exception: Exception) {
-      exception.printStackTrace()
-      null
+    override fun doInBackground(vararg params: String): String? {
+        return try {
+            val client = OkHttpClient()
+            val request = Request.Builder()
+                    .url(params[0])
+                    .build()
+            val response = client.newCall(request).execute()
+            val resStr = response.body?.string()
+            val json = JSONObject(resStr)
+            json.getJSONObject("user").getString("token")
+        } catch (exception: Exception) {
+            exception.printStackTrace()
+            null
+        }
     }
-  }
 
-  override fun onPostExecute(result: String?) {
-    result?.let {
-      mesiboApi.token = it
-      mesiboApi.startMesibo()
+    override fun onPostExecute(result: String?) {
+        result?.let {
+            mesiboApi.token = it
+            mesiboApi.startMesibo()
+            mesiboApi.readMessages()
+        }
     }
-  }
 }

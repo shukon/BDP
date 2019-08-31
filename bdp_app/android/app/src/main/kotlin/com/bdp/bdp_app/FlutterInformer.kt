@@ -1,12 +1,14 @@
 package com.bdp.bdp_app
 
-import com.mesibo.api.Mesibo
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import io.flutter.Log
 import io.flutter.plugin.common.EventChannel
 import io.flutter.view.FlutterView
 
 class FlutterInformer (flutterView: FlutterView){
-    var messageReceivedSink: EventChannel.EventSink? = null
+    private var messageReceivedSink: EventChannel.EventSink? = null
+    private val gson: Gson = GsonBuilder().create()
 
     init {
         EventChannel(flutterView, "com.bdp.bdp_app/message-received").setStreamHandler(
@@ -24,7 +26,7 @@ class FlutterInformer (flutterView: FlutterView){
         )
     }
 
-    fun notifyMessage(params: Mesibo.MessageParams, dataString: String) {
-        this.messageReceivedSink?.success(dataString)
+    fun notifyMessage(message: Message) {
+        this.messageReceivedSink?.success(gson.toJson(message))
     }
 }
