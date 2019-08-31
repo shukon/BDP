@@ -49,6 +49,10 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController _usernameFilter = new TextEditingController();
   final TextEditingController _passwordFilter = new TextEditingController();
 
+  static const platform = const MethodChannel("com.bdp.bdp_app/login");
+
+  static const messageReceived = const EventChannel("com.bdp.bdp_app/message-received");
+
   _HomePageState() {
     _usernameFilter.addListener(_usernameListen);
     _passwordFilter.addListener(_passwordListen);
@@ -85,11 +89,27 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+
+  Future<void> _loginMesibo(String username) async {
+    try {
+      final int result = await platform.invokeMethod(
+          'login', {"email": username});
+    } on PlatformException catch (e) {
+      print("Something utterly wrong: '${e.message}'.");
+    }
+  }
+
+  Future<String> _getMessages(){
+
+  }
+
+
   Future _loginButtonPressed() async {
     setState(() {
       if (_username == "stefan" && _password == "1234") {
         _loginSuccess = "erfolgreich angemeldet als stefan";
         _activePage = "RoomsPage";
+        _loginMesibo(_username);
       } else {
         showDialog(
             context: context,
@@ -231,13 +251,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    const channel = EventChannel('someStream');
-    channel.receiveBroadcastStream().listen((dynamic event) {
-      print('Received event: $event');
-    }, onError: (dynamic error) {
-      print('Received error: ${error.message}');
-    });
-
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
