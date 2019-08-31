@@ -3,7 +3,8 @@ package com.bdp.bdp_app
 import com.mesibo.api.Mesibo
 import io.flutter.Log
 
-class MesiboListener (private val flutterInformer: FlutterInformer):
+class MesiboListener (private val flutterInformer: FlutterInformer,
+                      private val messageStore: MessageStore):
         Mesibo.MessageListener, Mesibo.ConnectionListener {
 
     override fun Mesibo_onConnectionStatus(status: Int) {
@@ -23,6 +24,7 @@ class MesiboListener (private val flutterInformer: FlutterInformer):
                 senderId = params.profile.address,
                 senderName = params.profile.name)
         flutterInformer.notifyMessage(message)
+        messageStore.storeMessage(message)
         return true
     }
 

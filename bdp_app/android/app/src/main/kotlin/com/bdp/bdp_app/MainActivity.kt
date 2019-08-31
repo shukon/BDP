@@ -1,6 +1,8 @@
 package com.bdp.bdp_app
 
 import android.os.Bundle
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import io.flutter.Log
 
 import io.flutter.app.FlutterActivity
@@ -8,14 +10,16 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugins.GeneratedPluginRegistrant
 
 class MainActivity: FlutterActivity() {
-  var mesiboApi: MesiboApi? = null
+  private var mesiboApi: MesiboApi? = null
+  private val messageStore = MessageStore()
+  private val gson: Gson = GsonBuilder().create()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     Log.w("TAG", "Starting Android")
     super.onCreate(savedInstanceState)
     GeneratedPluginRegistrant.registerWith(this)
 
-    mesiboApi = MesiboApi(MesiboListener(FlutterInformer(flutterView)), this)
+    mesiboApi = MesiboApi(MesiboListener(FlutterInformer(flutterView), messageStore), this)
     setupMethodChannels()
   }
 
@@ -39,6 +43,18 @@ class MainActivity: FlutterActivity() {
           val destination = call.argument<String>("destination")
                   ?: return@setMethodCallHandler result.error("FAILED", "No destination specified", null)
           mesiboApi?.sendMessage(message, destination)
+        }
+        "get-conversations" -> {
+          val conversationIds = messageStore.getConversationIds()
+          result.success(gson.toJson(conversationIds))
+        }
+        "get-messages" -> {
+          val id = call.argument<String>("id")
+          id?.let {
+            val messages = messageStore.getMessagesFor(id)
+            return@setMethodCallHandler result.success(gson.toJson(messages))
+          }
+          result.error("FAILED", "No id specified", null)
         }
         else -> result.notImplemented()
       }
