@@ -27,7 +27,7 @@ class MesiboListener (private val flutterInformer: FlutterInformer):
     }
 
     override fun Mesibo_onMessageStatus(params: Mesibo.MessageParams) {
-        Log.e("TAG", "on Mesibo Message: $params")
+        Log.e("TAG", "on Mesibo Message Status: $params")
     }
 
     override fun Mesibo_onActivity(p0: Mesibo.MessageParams?, p1: Int) {
