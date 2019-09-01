@@ -7,6 +7,8 @@ class ChatMessage extends StatelessWidget {
   final String username;
   final String sendername;
   final String text;
+  final String sentTime = "23:55";
+  final bool received = true;
 
   String getSenderName() {
     return sendername;
@@ -22,18 +24,32 @@ class ChatMessage extends StatelessWidget {
         child: new Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
-            new Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
-                new Text(sendername,
-                    style: Theme.of(context).textTheme.subhead),
-                new Container(
-                  margin: const EdgeInsets.only(top: 5.0),
-                  child: new Bubble(child: Text(text, maxLines: 20,),  nip: BubbleNip.rightTop, color: Colors.lightGreen),
-                  constraints: BoxConstraints(maxWidth: 200),
-                )
-              ],
+        new Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+          children: <Widget>[
+            new Text(sendername,
+                style: DefaultTextStyle.of(context).style.apply(fontSizeFactor: 0.8)),
+            new Container(
+                //margin: const EdgeInsets.only(top: 5.0),
+                constraints: BoxConstraints(maxWidth: 200),
+                child: new Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                  new Bubble(child: Text(text, maxLines: 20,), nip: BubbleNip.rightTop),
+                  new Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Text(sentTime, style: DefaultTextStyle.of(context).style.apply(fontSizeFactor: 0.5)),
+                      new Icon (received ? Icons.done_all : Icons.done, size: 10.0)
+
+                    ],
+                  )
+                ],)
+
             ),
+
+          ],
+        ),
             new Container(
               margin: const EdgeInsets.only(left: 16.0),
               child: new CircleAvatar(
@@ -59,12 +75,26 @@ class ChatMessage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 new Text(sendername,
-                    style: Theme.of(context).textTheme.subhead),
+                    style: DefaultTextStyle.of(context).style.apply(fontSizeFactor: 0.8)),
                 new Container(
-                  margin: const EdgeInsets.only(top: 5.0),
+                  //margin: const EdgeInsets.only(top: 5.0),
                   constraints: BoxConstraints(maxWidth: 200),
-                  child: new Bubble(child: Text(text, maxLines: 20,), nip: BubbleNip.leftTop),
-                )
+                  child: new Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                    new Bubble(child: Text(text, maxLines: 20,), nip: BubbleNip.leftTop),
+                    new Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Text(sentTime, style: DefaultTextStyle.of(context).style.apply(fontSizeFactor: 0.5)),
+                        new Icon (received ? Icons.done_all : Icons.done, size: 10.0)
+
+                      ],
+                    )
+                  ],)
+
+                ),
+
               ],
             )
           ],

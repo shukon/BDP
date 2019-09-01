@@ -65,6 +65,12 @@ List<Map<String, Object>> getChatData(String user) {
   ];
 }
 
+Color nameHash(String name){
+
+
+
+}
+
 class ChatList extends StatelessWidget {
   ChatList({Key key, this.username}) : super(key: key);
   final String username;
