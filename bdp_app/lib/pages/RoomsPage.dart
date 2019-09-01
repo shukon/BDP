@@ -86,7 +86,7 @@ class ChatList extends StatelessWidget {
             title: Text(_chatItems[index]['name']),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return ChatPage(username : username, chatID :_chatItems[index]['name']); // passing data to chat room
+                return ChatPage(username : username, chat :_chatItems[index]); // passing data to chat room
               }));
             });
       },

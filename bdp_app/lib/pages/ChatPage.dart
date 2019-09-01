@@ -5,9 +5,9 @@ import 'package:bdp_app/chat/ChatMessage.dart';
 import 'package:flutter/services.dart';
 
 class ChatPage extends StatefulWidget {
-  ChatPage({Key key, this.username, this.chatID}) : super(key: key);
+  ChatPage({Key key, this.username, this.chat}) : super(key: key);
   final String username;
-  final String chatID;
+  final Map chat;
 
   @override
   _ChatPageState createState() => _ChatPageState();
@@ -84,6 +84,7 @@ class _ChatPageState extends State<ChatPage> {
           0,
           new ChatMessage(
               username: widget.username,
+              icon: widget.chat["icon"],
               sendername: message["senderName"],
               text: message["text"]));
 
@@ -110,8 +111,11 @@ class _ChatPageState extends State<ChatPage> {
     textEditingController.clear();
     print("Widget username: " + widget.username);
     ChatMessage chatMessage = new ChatMessage(
-        username: widget.username, sendername: widget.username, text: text);
-    _sendMessage(text, widget.chatID);
+        username: widget.username,
+        icon: widget.chat["icon"],
+        sendername: widget.username,
+        text: text);
+    _sendMessage(text, widget.chat["name"]);
     setState(() {
       //used to rebuild our widget
       _messages.insert(0, chatMessage);
@@ -152,40 +156,41 @@ class _ChatPageState extends State<ChatPage> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text(widget.chatID),
+          title: Text(widget.chat["name"]),
           backgroundColor: (_connectionStatus == 1) ? Colors.green : Colors.red,
-          flexibleSpace: Text("Connection status: " + _connectionStatus.toString()),
+          flexibleSpace:
+              Text("Connection status: " + _connectionStatus.toString()),
         ),
         body: Center(
             child: new Column(
-      children: <Widget>[
-        new Flexible(
-          child: new ListView.builder(
-            padding: new EdgeInsets.all(8.0),
-            reverse: true,
-            itemBuilder: (content, int index) {
-              //if message is from myself, print on right side, else on left side
-              if (_messages[index].getSenderName() == widget.username) {
-                return new Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[_messages[index]]);
-              } else {
-                return _messages[index];
-              }
-            },
-            itemCount: _messages.length,
-          ),
-        ),
-        new Divider(
-          height: 1.0,
-        ),
-        new Container(
-          decoration: new BoxDecoration(
-            color: Theme.of(context).cardColor,
-          ),
-          child: _textComposerWidget(),
-        )
-      ],
-    )));
+          children: <Widget>[
+            new Flexible(
+              child: new ListView.builder(
+                padding: new EdgeInsets.all(8.0),
+                reverse: true,
+                itemBuilder: (content, int index) {
+                  //if message is from myself, print on right side, else on left side
+                  if (_messages[index].getSenderName() == widget.username) {
+                    return new Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[_messages[index]]);
+                  } else {
+                    return _messages[index];
+                  }
+                },
+                itemCount: _messages.length,
+              ),
+            ),
+            new Divider(
+              height: 1.0,
+            ),
+            new Container(
+              decoration: new BoxDecoration(
+                color: Theme.of(context).cardColor,
+              ),
+              child: _textComposerWidget(),
+            )
+          ],
+        )));
   }
 }
