@@ -75,26 +75,34 @@ class ChatMessage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 new Text(sendername,
-                    style: DefaultTextStyle.of(context).style.apply(fontSizeFactor: 0.8)),
+                    style: DefaultTextStyle.of(context)
+                        .style
+                        .apply(fontSizeFactor: 0.8)),
                 new Container(
-                  //margin: const EdgeInsets.only(top: 5.0),
-                  constraints: BoxConstraints(maxWidth: 200),
-                  child: new Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                    new Bubble(child: Text(text, maxLines: 20,), nip: BubbleNip.leftTop),
-                    new Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                    //margin: const EdgeInsets.only(top: 5.0),
+                    constraints: BoxConstraints(maxWidth: 200),
+                    child: new Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(sentTime, style: DefaultTextStyle.of(context).style.apply(fontSizeFactor: 0.5)),
-                        new Icon (received ? Icons.done_all : Icons.done, size: 10.0)
-
+                        new Bubble(
+                            child: Text(
+                              text,
+                              maxLines: 20,
+                            ),
+                            nip: BubbleNip.leftTop),
+                        new Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Text(sentTime,
+                                style: DefaultTextStyle.of(context)
+                                    .style
+                                    .apply(fontSizeFactor: 0.5)),
+                            new Icon(received ? Icons.done_all : Icons.done,
+                                size: 10.0)
+                          ],
+                        )
                       ],
-                    )
-                  ],)
-
-                ),
-
+                    )),
               ],
             )
           ],

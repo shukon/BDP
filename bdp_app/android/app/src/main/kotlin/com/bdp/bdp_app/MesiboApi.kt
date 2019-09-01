@@ -35,7 +35,7 @@ class MesiboApi(private val mesiboListener: MesiboListener,
         Mesibo.start()
     }
 
-    fun sendMessage(text: String, destination: String) {
+    fun sendMessage(text: String, destination: String) : Long {
         val messageParams = Mesibo.MessageParams()
         val groupid = destination.toLongOrNull()
         if (groupid != null)
@@ -45,6 +45,7 @@ class MesiboApi(private val mesiboListener: MesiboListener,
         val id = Mesibo.random()
         Mesibo.sendMessage(messageParams, id, text)
         messageStore.storeMessage(Message(text, id, groupid, this.userId, this.userName, destination))
+        return id;
     }
 
     fun createGroup(name: String) {

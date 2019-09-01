@@ -52,7 +52,8 @@ class MainActivity: FlutterActivity() {
                   ?: return@setMethodCallHandler result.error("FAILED", "No message specified", null)
           val destination = call.argument<String>("destination")
                   ?: return@setMethodCallHandler result.error("FAILED", "No destination specified", null)
-          mesiboApi?.sendMessage(message, destination)
+          val id = mesiboApi?.sendMessage(message, destination);
+          return@setMethodCallHandler result.success(id)
         }
         "get-conversations" -> {
           val conversationIds = messageStore?.getConversationIds()

@@ -14,24 +14,25 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
-
   final TextEditingController textEditingController =
       new TextEditingController();
   final List<ChatMessage> _messages = <ChatMessage>[];
+  final List<String> _messageIdsPending = <String>[];
 
   static const mesiboMethodChannel =
-  const MethodChannel("com.bdp.bdp_app/mesibo");
+      const MethodChannel("com.bdp.bdp_app/mesibo");
   static const messageListener =
-  const EventChannel("com.bdp.bdp_app/message-received");
+      const EventChannel("com.bdp.bdp_app/message-received");
   static const messageStatusListener =
-  const EventChannel("com.bdp.bdp_app/message-status");
+      const EventChannel("com.bdp.bdp_app/message-status");
   static const connectionListener =
-  const EventChannel("com.bdp.bdp_app/connection-status");
+      const EventChannel("com.bdp.bdp_app/connection-status");
 
   Future<void> _setConnectionStatus() async {
     // gets connection status from mesibo
     try {
-      var status = await mesiboMethodChannel.invokeMethod('get-connection-status');
+      var status =
+          await mesiboMethodChannel.invokeMethod('get-connection-status');
       _connectionStatus = status;
     } on PlatformException catch (e) {
       print("Something utterly wrong: '${e.message}'.");
@@ -55,8 +56,7 @@ class _ChatPageState extends State<ChatPage> {
       print(event);
       _connectionStatus = event;
       //hierdurch wird build ausgeführt
-      setState(() {
-      });
+      setState(() {});
     }, onError: (dynamic error) {
       print(error);
     });
@@ -66,7 +66,10 @@ class _ChatPageState extends State<ChatPage> {
     messageStatusListener.receiveBroadcastStream().listen((dynamic event) {
       print("Message status changed!");
       print(event);
-      }, onError: (dynamic error) {
+      if (_messageIdsPending.contains(event["id"])) {
+        _messageIdsPending.remove(event["id"]);
+      }
+    }, onError: (dynamic error) {
       print(error);
     });
   }
@@ -85,20 +88,18 @@ class _ChatPageState extends State<ChatPage> {
               text: message["text"]));
 
       //hierdurch wird build ausgeführt
-      setState(() {
-
-      });
-
-      }, onError: (dynamic error) {
+      setState(() {});
+    }, onError: (dynamic error) {
       print(error);
     });
-
   }
 
-  void _sendMessage(String message, String destination) {
+  int _sendMessage(String message, String destination) {
     print("Trying to send message " + message + " TO: " + destination);
     try {
-      mesiboMethodChannel.invokeMethod('send-message', {"message": message, "destination" : destination});
+      var id = mesiboMethodChannel.invokeMethod(
+          'send-message', {"message": message, "destination": destination});
+      _messageIdsPending.add(id.toString());
     } on PlatformException catch (e) {
       print("Something utterly wrong: '${e.message}'.");
     }
