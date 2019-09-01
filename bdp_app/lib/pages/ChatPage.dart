@@ -23,6 +23,8 @@ class _ChatPageState extends State<ChatPage> {
   const MethodChannel("com.bdp.bdp_app/mesibo");
   static const messageListener =
   const EventChannel("com.bdp.bdp_app/message-received");
+  static const messageStatusListener =
+  const EventChannel("com.bdp.bdp_app/message-status");
   static const connectionListener =
   const EventChannel("com.bdp.bdp_app/connection-status");
 
@@ -43,6 +45,7 @@ class _ChatPageState extends State<ChatPage> {
     _getMessages();
     _listenConnectionStatus();
     _setConnectionStatus();
+    _listenMessageStatus();
     super.initState();
   }
 
@@ -55,6 +58,15 @@ class _ChatPageState extends State<ChatPage> {
       setState(() {
       });
     }, onError: (dynamic error) {
+      print(error);
+    });
+  }
+
+  void _listenMessageStatus() {
+    messageStatusListener.receiveBroadcastStream().listen((dynamic event) {
+      print("Message status changed!");
+      print(event);
+      }, onError: (dynamic error) {
       print(error);
     });
   }

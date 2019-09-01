@@ -33,6 +33,15 @@ class MesiboListener(private val flutterInformer: FlutterInformer,
 
     override fun Mesibo_onMessageStatus(params: Mesibo.MessageParams) {
         Log.e("TAG", "on Mesibo Message Status: $params")
+        val messageParams = mapOf("status" to params.getStatus().toString(),
+            "id" to params.mid.toString(),
+            "groupId" to params.groupid.toString(),
+            "senderId" to params.profile.address.toString(),
+            "senderName" to params.profile.name.toString(),
+                "isPending" to params.isPendingMessage().toString(),
+                "ts" to params.ts.toString()
+        );
+        flutterInformer.notifyMessageStatus(messageParams)
     }
 
     override fun Mesibo_onActivity(p0: Mesibo.MessageParams?, p1: Int) {

@@ -8,6 +8,7 @@ import io.flutter.view.FlutterView
 
 class FlutterInformer (flutterView: FlutterView){
     private var messageReceivedSink: EventChannel.EventSink? = null
+    private var messageStatusSink: EventChannel.EventSink? = null
     private var connectionStatusSink: EventChannel.EventSink? = null
     private val gson: Gson = GsonBuilder().create()
 
@@ -22,6 +23,19 @@ class FlutterInformer (flutterView: FlutterView){
                     override fun onCancel(args: Any?) {
                         Log.w("TAG", "cancelling message listener")
                         messageReceivedSink = null
+                    }
+                }
+        )
+        EventChannel(flutterView, "com.bdp.bdp_app/message-status").setStreamHandler(
+                object : EventChannel.StreamHandler {
+                    override fun onListen(args: Any?, events: EventChannel.EventSink) {
+                        Log.w("TAG", "adding message status listener")
+                        messageStatusSink = events
+                    }
+
+                    override fun onCancel(args: Any?) {
+                        Log.w("TAG", "cancelling message status listener")
+                        messageStatusSink = null
                     }
                 }
         )
@@ -42,6 +56,11 @@ class FlutterInformer (flutterView: FlutterView){
 
     fun notifyMessage(message: Message) {
         this.messageReceivedSink?.success(gson.toJson(message))
+    }
+
+    fun notifyMessageStatus(params: Map<String, String>
+    ) {
+        this.messageStatusSink?.success(gson.toJson(params))
     }
 
     fun notifyConnectionStatus(status: Int) {
