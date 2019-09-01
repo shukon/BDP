@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:bdp_app/chat/bubble.dart';
 
 class ChatMessage extends StatelessWidget {
-  ChatMessage({Key key, this.username, this.icon, this.sendername, this.text})
+  ChatMessage({Key key, this.username, this.icon, this.sendername, this.destination, this.chatID, this.text})
       : super(key: key);
   final String username;
   final Icon icon;
   final String sendername;
+  final String destination;
+  final String chatID;
   final String text;
   final String sentTime = "23:55";
   final bool received = true;
