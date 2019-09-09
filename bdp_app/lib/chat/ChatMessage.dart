@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:bdp_app/chat/bubble.dart';
 
 class ChatMessage extends StatelessWidget {
-  ChatMessage({Key key, this.username, this.icon, this.sendername, this.destination, this.chatID, this.text})
+  ChatMessage({Key key, this.username, this.icon, this.sendername, this.destination, this.chatID, this.text, this.sentTime})
       : super(key: key);
   final String username;
   final Icon icon;
@@ -10,7 +10,7 @@ class ChatMessage extends StatelessWidget {
   final String destination;
   final String chatID;
   final String text;
-  final String sentTime = "23:55";
+  final String sentTime;
   final bool received = true;
 
   String getSenderName() {

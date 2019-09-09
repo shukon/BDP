@@ -91,6 +91,7 @@ class _ChatListState extends State<ChatList> {
   // Mesibo event channels
   static const messageListener = const EventChannel("com.bdp.bdp_app/message-received");
 
+
   void _listenForMessages() {
     // Listener for new messages todo can we use listener from parent?
     messageListener.receiveBroadcastStream().listen((dynamic event) {
@@ -99,7 +100,9 @@ class _ChatListState extends State<ChatList> {
       message = new ChatMessage(
           username: widget.username,
           sendername: message["senderName"],
-          text: message["text"]);
+          text: message["text"],
+          sentTime: "17:77"
+      );
 
       newMessage(message);
 
