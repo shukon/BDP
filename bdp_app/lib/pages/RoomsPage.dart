@@ -101,7 +101,7 @@ class _ChatListState extends State<ChatList> {
           username: widget.username,
           sendername: message["senderName"],
           text: message["text"],
-          sentTime: "17:77"
+          sentTime: DateTime.now().toString().substring(11,16) //todo: this is actually not sentTime. do we want that?
       );
 
       newMessage(message);

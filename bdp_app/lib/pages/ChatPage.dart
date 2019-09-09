@@ -88,7 +88,8 @@ class _ChatPageState extends State<ChatPage> {
           destination: widget.username,
           chatID: message["senderName"],  // todo because chatMessages are local
           text: message["text"],
-          sentTime: "17:77");
+          sentTime: DateTime.now().toString().substring(11,16) //todo: this is actually not sentTime. do we want that?
+      );
 
       widget.notifyParentNewMsg(message);
 
