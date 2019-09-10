@@ -116,6 +116,7 @@ class _ChatListState extends State<ChatList> {
     });
   }
 
+
   void newMessage(chatMessage) {
     //if message is not a group message
     if(chatMessage.groupId == "") {
