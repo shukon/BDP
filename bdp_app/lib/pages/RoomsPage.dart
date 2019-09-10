@@ -66,6 +66,7 @@ List<Map<String, Object>> getChatData(String user) {
     'name': 'appsperten',
     'lastMessage': 'hi there',
     'lastSeen': '2:53 in the afternoon',
+    'groupId': '22225'
   }
   ];
 }
@@ -100,8 +101,10 @@ class _ChatListState extends State<ChatList> {
       message = new ChatMessage(
           username: widget.username,
           sendername: message["senderName"],
+          chatID: message["senderName"],  // todo because chatMessages are local
           text: message["text"],
-          sentTime: DateTime.now().toString().substring(11,16) //todo: this is actually not sentTime. do we want that?
+          groupId: (message["groupId"] == null) ? "" : message["groupId"].toString(),
+          sentTime: DateTime.now().toString().substring(11,16) //todo: this is actually not sent Time but received time. do we want that?
       );
 
       newMessage(message);
@@ -114,14 +117,27 @@ class _ChatListState extends State<ChatList> {
   }
 
   void newMessage(chatMessage) {
-    // Create new list in map if conversation doesnt exist locally
-    if (!_messages.containsKey(chatMessage.chatID)) {
-      _messages[chatMessage.chatID] = new List<ChatMessage>();
+    //if message is not a group message
+    if(chatMessage.groupId == "") {
+      // Create new list in map if conversation doesnt exist locally
+      if (!_messages.containsKey(chatMessage.chatID)) {
+        _messages[chatMessage.chatID] = new List<ChatMessage>();
+      }
+      _messages[chatMessage.chatID].insert(
+          0,
+          chatMessage);
+      print("new" + _messages.toString());
     }
-    _messages[chatMessage.chatID].insert(
-        0,
-        chatMessage);
-    print("new" + _messages.toString());
+    //if message IS a group message
+    else{
+      if (!_messages.containsKey(chatMessage.groupId)) {
+        _messages[chatMessage.groupId] = new List<ChatMessage>();
+      }
+      _messages[chatMessage.groupId].insert(
+          0,
+          chatMessage);
+      print("new group message" + _messages.toString());
+    }
     //hierdurch wird build ausgeführt
     setState(() {});
   }

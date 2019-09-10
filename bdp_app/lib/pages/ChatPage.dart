@@ -87,6 +87,7 @@ class _ChatPageState extends State<ChatPage> {
           sendername: message["senderName"],
           destination: widget.username,
           chatID: message["senderName"],  // todo because chatMessages are local
+          groupId: (message["groupId"] == null) ? "" : message["groupId"].toString(),
           text: message["text"],
           sentTime: DateTime.now().toString().substring(11,16) //todo: this is actually not sentTime. do we want that?
       );
@@ -117,6 +118,7 @@ class _ChatPageState extends State<ChatPage> {
     ChatMessage chatMessage =
         new ChatMessage(username: widget.username, icon: widget.chat["icon"], sendername: widget.username,
             destination: widget.chat["name"],
+            groupId: (widget.chat["groupId"] == null) ? "" : widget.chat["groupId"],
             chatID: widget.chat["name"], text: text, sentTime: DateTime.now().toString().substring(11,16),);  // todo because chatMessages are local
     _sendMessage(text, widget.chat["name"]);
     setState(() {
@@ -153,14 +155,14 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    _messages = widget.getMessages(widget.chat['name']);
+    _messages =  (widget.chat["groupId"] == null) ? widget.getMessages(widget.chat['name']) : widget.getMessages(widget.chat["groupId"]);
     _setConnectionStatus();
 
     print("show" + _messages.toString());
 
     return Scaffold(
         appBar: AppBar(
-          title: Text(widget.chat["name"]),
+          title: (widget.chat['groupId'] == null ) ? Text(widget.chat["name"]) : Text("Gruppenchat: " + (widget.chat["name"])),
           backgroundColor: (_connectionStatus == 1) ? Colors.green : Colors.red,
           flexibleSpace: Text("Connection status: " + _connectionStatus.toString()),
         ),
