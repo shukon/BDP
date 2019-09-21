@@ -3,9 +3,16 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:bdp_app/chat/ChatMessage.dart';
 import 'package:flutter/services.dart';
+import 'package:emoji_picker/emoji_picker.dart';
 
 class ChatPage extends StatefulWidget {
-  ChatPage({Key key, this.username, this.chat, this.notifyParentNewMsg, this.getMessages}) : super(key: key);
+  ChatPage(
+      {Key key,
+      this.username,
+      this.chat,
+      this.notifyParentNewMsg,
+      this.getMessages})
+      : super(key: key);
   final String username;
   final Map chat;
   final Function(dynamic event) notifyParentNewMsg;
@@ -27,7 +34,15 @@ class _ChatPageState extends State<ChatPage> {
     super.initState();
   }
 
-  final TextEditingController textEditingController = new TextEditingController();
+  final TextEditingController textEditingController =
+      new TextEditingController();
+
+
+  //emojis added, open problems remaining
+  // TODO: pixel overflow when switching between text and emojis
+  // TODO: not all emojis recognized by flutter
+  // TODO: cursor jumps to start after adding emoji
+  bool _emojiInput = false;
 
   final List<String> _messageIdsPending = <String>[];
 
@@ -35,16 +50,22 @@ class _ChatPageState extends State<ChatPage> {
   List<ChatMessage> _messages;
 
   // Mesibo method channel
-  static const mesiboMethodChannel = const MethodChannel("com.bdp.bdp_app/mesibo");
+  static const mesiboMethodChannel =
+      const MethodChannel("com.bdp.bdp_app/mesibo");
+
   // Mesibo event channels
-  static const messageListener = const EventChannel("com.bdp.bdp_app/message-received");
-  static const messageStatusListener = const EventChannel("com.bdp.bdp_app/message-status");
-  static const connectionListener = const EventChannel("com.bdp.bdp_app/connection-status");
+  static const messageListener =
+      const EventChannel("com.bdp.bdp_app/message-received");
+  static const messageStatusListener =
+      const EventChannel("com.bdp.bdp_app/message-status");
+  static const connectionListener =
+      const EventChannel("com.bdp.bdp_app/connection-status");
 
   Future<void> _setConnectionStatus() async {
     // gets connection status from mesibo
     try {
-      var status = await mesiboMethodChannel.invokeMethod('get-connection-status');
+      var status =
+          await mesiboMethodChannel.invokeMethod('get-connection-status');
       _connectionStatus = status;
     } on PlatformException catch (e) {
       print("Something utterly wrong: '${e.message}'.");
@@ -86,11 +107,15 @@ class _ChatPageState extends State<ChatPage> {
           username: widget.username,
           sendername: message["senderName"],
           destination: widget.username,
-          chatID: message["senderName"],  // todo because chatMessages are local
-          groupId: (message["groupId"] == null) ? "" : message["groupId"].toString(),
+          messageId: message["id"].toString(),
+          chatID: message["senderName"],
+          // todo because chatMessages are local
+          groupId:
+              (message["groupId"] == null) ? "" : message["groupId"].toString(),
           text: message["text"],
-          sentTime: DateTime.now().toString().substring(11,16) //todo: this is actually not sentTime. do we want that?
-      );
+          sentTime: DateTime.now().toString().substring(
+              11, 16) //todo: this is actually not sentTime. do we want that?
+          );
 
       widget.notifyParentNewMsg(message);
 
@@ -104,7 +129,8 @@ class _ChatPageState extends State<ChatPage> {
   int _sendMessage(String message, String destination) {
     print("Trying to send message " + message + " TO: " + destination);
     try {
-      var id = mesiboMethodChannel.invokeMethod('send-message', {"message": message, "destination": destination});
+      var id = mesiboMethodChannel.invokeMethod(
+          'send-message', {"message": message, "destination": destination});
       _messageIdsPending.add(id.toString());
     } on PlatformException catch (e) {
       print("Something utterly wrong: '${e.message}'.");
@@ -114,17 +140,44 @@ class _ChatPageState extends State<ChatPage> {
 
   void _handleSubmit(String text) {
     textEditingController.clear();
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
+    _emojiInput = false;
     print("Widget username: " + widget.username);
-    ChatMessage chatMessage =
-        new ChatMessage(username: widget.username, icon: widget.chat["icon"], sendername: widget.username,
-            destination: widget.chat["name"],
-            groupId: (widget.chat["groupId"] == null) ? "" : widget.chat["groupId"],
-            chatID: widget.chat["name"], text: text, sentTime: DateTime.now().toString().substring(11,16),);  // todo because chatMessages are local
+    ChatMessage chatMessage = new ChatMessage(
+      username: widget.username,
+      icon: widget.chat["icon"],
+      sendername: widget.username,
+      destination: widget.chat["name"],
+      groupId: (widget.chat["groupId"] == null) ? "" : widget.chat["groupId"],
+      chatID: widget.chat["name"],
+      text: text,
+      sentTime: DateTime.now().toString().substring(11, 16),
+    ); // todo because chatMessages are local
     _sendMessage(text, widget.chat["name"]);
     setState(() {
       widget.notifyParentNewMsg(chatMessage);
     });
   }
+
+  void _emojiButtonPressed() {
+
+    if (_emojiInput){
+      _emojiInput = false;
+      setState(() {
+
+      });
+      SystemChannels.textInput.invokeMethod('TextInput.show');
+    } else {
+      SystemChannels.textInput.invokeMethod('TextInput.hide');
+      setState(() {
+
+      });
+      _emojiInput = true;
+    }
+
+
+  }
+
 
   Widget _textComposerWidget() {
     return new IconTheme(
@@ -133,10 +186,21 @@ class _ChatPageState extends State<ChatPage> {
         margin: const EdgeInsets.symmetric(horizontal: 8.0),
         child: new Row(
           children: <Widget>[
+            new Container(
+              child: new IconButton(
+                  icon: new Text("😜"),
+                  onPressed: () =>
+                  {
+                    _emojiButtonPressed()
+                  }
+              ),
+            ),
             new Flexible(
               child: new TextField(
-                decoration: new InputDecoration.collapsed(hintText: "Enter your message"),
+                decoration: new InputDecoration.collapsed(
+                    hintText: "Enter your message"),
                 controller: textEditingController,
+                onTap: () => _emojiInput = false,
                 onSubmitted: _handleSubmit,
               ),
             ),
@@ -155,16 +219,21 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    _messages =  (widget.chat["groupId"] == null) ? widget.getMessages(widget.chat['name']) : widget.getMessages(widget.chat["groupId"]);
+    _messages = (widget.chat["groupId"] == null)
+        ? widget.getMessages(widget.chat['name'])
+        : widget.getMessages(widget.chat["groupId"]);
     _setConnectionStatus();
 
     print("show" + _messages.toString());
 
     return Scaffold(
         appBar: AppBar(
-          title: (widget.chat['groupId'] == null ) ? Text(widget.chat["name"]) : Text("Gruppenchat: " + (widget.chat["name"])),
+          title: (widget.chat['groupId'] == null)
+              ? Text(widget.chat["name"])
+              : Text("Gruppenchat: " + (widget.chat["name"])),
           backgroundColor: (_connectionStatus == 1) ? Colors.green : Colors.red,
-          flexibleSpace: Text("Connection status: " + _connectionStatus.toString()),
+          flexibleSpace:
+              Text("Connection status: " + _connectionStatus.toString()),
         ),
         body: Center(
             child: new Column(
@@ -176,7 +245,9 @@ class _ChatPageState extends State<ChatPage> {
                 itemBuilder: (content, int index) {
                   //if message is from myself, print on right side, else on left side
                   if (_messages[index].getSenderName() == widget.username) {
-                    return new Row(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[_messages[index]]);
+                    return new Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[_messages[index]]);
                   } else {
                     return _messages[index];
                   }
@@ -192,7 +263,16 @@ class _ChatPageState extends State<ChatPage> {
                 color: Theme.of(context).cardColor,
               ),
               child: _textComposerWidget(),
-            )
+            ),
+            _emojiInput ? new EmojiPicker(
+              rows: 3,
+              columns: 7,
+              recommendKeywords: ["racing", "horse"],
+              numRecommended: 10,
+              onEmojiSelected: (emoji, category) {
+                textEditingController.text = textEditingController.text + emoji.emoji;
+              },
+            ) : new Container(width: 0, height: 0),
           ],
         )));
   }
