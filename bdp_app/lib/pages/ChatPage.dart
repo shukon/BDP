@@ -234,6 +234,10 @@ class _ChatPageState extends State<ChatPage> {
 
     print("show" + _messages.toString());
 
+
+
+    
+
     return Scaffold(
         appBar: AppBar(
           title: (widget.chat['groupId'] == null)
