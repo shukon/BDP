@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:bdp_app/chat/ChatMessage.dart';
 import 'package:flutter/services.dart';
-import 'package:emoji_picker/emoji_picker.dart';
+import 'package:bdp_app/chat/emoji_picker.dart';
 
 class ChatPage extends StatefulWidget {
   ChatPage(
@@ -39,8 +39,7 @@ class _ChatPageState extends State<ChatPage> {
 
 
   //emojis added, open problems remaining
-  // TODO: pixel overflow when switching between text and emojis
-  // TODO: not all emojis recognized by flutter
+  // TODO: remove/replace not recognizable emojis
   // TODO: cursor jumps to start after adding emoji
   bool _emojiInput = false;
 
@@ -172,7 +171,16 @@ class _ChatPageState extends State<ChatPage> {
       setState(() {
 
       });
-      _emojiInput = true;
+
+      //added small delay to wait for keyboard collapse, otherwise transition is ugly looking
+      Future.delayed(const Duration(milliseconds: 60), ()
+      {
+
+        setState(() {
+          _emojiInput = true;
+
+        });
+      });
     }
 
 
@@ -270,7 +278,15 @@ class _ChatPageState extends State<ChatPage> {
               recommendKeywords: ["racing", "horse"],
               numRecommended: 10,
               onEmojiSelected: (emoji, category) {
+                //this adds emoji always at the end of the text which is not nice
                 textEditingController.text = textEditingController.text + emoji.emoji;
+
+                /* this code would enable emoji input anywhere in the text, but cursorPos does very strange things therefore
+                not possible
+                var cursorPos = textEditingController.selection;
+                textEditingController.text = textEditingController.text.substring(0, cursorPos.start)
+                    + emoji.emoji + textEditingController.text.substring(cursorPos.start, textEditingController.text.length);
+                */
               },
             ) : new Container(width: 0, height: 0),
           ],
