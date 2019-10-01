@@ -106,7 +106,7 @@ class _ChatListState extends State<ChatList> {
           text: message["text"],
           messageId: message["id"].toString(),
           groupId: (message["groupId"] == null) ? "" : message["groupId"].toString(),
-          sentTime: DateTime.now().toString().substring(11,16) //todo: this is actually not sent Time but received time. do we want that?
+          sentTime: DateTime.now() //todo: this is actually not sent Time but received time. do we want that?
       );
 
       newMessage(message);
@@ -120,27 +120,16 @@ class _ChatListState extends State<ChatList> {
 
 
   void newMessage(chatMessage) {
-    //if message is not a group message
-    if(chatMessage.groupId == "") {
-      // Create new list in map if conversation doesnt exist locally
-      if (!_messages.containsKey(chatMessage.chatID)) {
-        _messages[chatMessage.chatID] = new List<ChatMessage>();
-      }
-      _messages[chatMessage.chatID].insert(
-          0,
-          chatMessage);
-      print("new" + _messages.toString());
+
+    var key = chatMessage.groupId == "" ? chatMessage.chatID : chatMessage.groupId;
+
+    if (!_messages.containsKey(key)) {
+      _messages[key] = new List<ChatMessage>();
     }
-    //if message IS a group message
-    else{
-      if (!_messages.containsKey(chatMessage.groupId)) {
-        _messages[chatMessage.groupId] = new List<ChatMessage>();
-      }
-      _messages[chatMessage.groupId].insert(
-          0,
-          chatMessage);
-      print("new group message" + _messages.toString());
-    }
+    _messages[key].insert(
+        0,
+        chatMessage);
+
     //hierdurch wird build ausgeführt
     setState(() {});
   }

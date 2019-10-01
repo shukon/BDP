@@ -12,7 +12,7 @@ class ChatMessage extends StatelessWidget {
   final String chatID;
   final String groupId;
   final String text;
-  final String sentTime;
+  final DateTime sentTime;
   final bool received = true;
 
   String getSenderName() {
@@ -56,7 +56,7 @@ class ChatMessage extends StatelessWidget {
                         new Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
-                            Text(sentTime,
+                            Text(sentTime.toString().substring(11, 16),
                                 style: DefaultTextStyle.of(context)
                                     .style
                                     .apply(fontSizeFactor: 0.5)),
@@ -111,7 +111,7 @@ class ChatMessage extends StatelessWidget {
                         new Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
-                            Text(sentTime,
+                            Text(sentTime.toString().substring(11, 16),
                                 style: DefaultTextStyle.of(context)
                                     .style
                                     .apply(fontSizeFactor: 0.5)),

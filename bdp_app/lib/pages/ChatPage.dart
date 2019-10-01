@@ -112,8 +112,7 @@ class _ChatPageState extends State<ChatPage> {
           groupId:
               (message["groupId"] == null) ? "" : message["groupId"].toString(),
           text: message["text"],
-          sentTime: DateTime.now().toString().substring(
-              11, 16) //todo: this is actually not sentTime. do we want that?
+          sentTime: DateTime.now() //todo: this is actually not sentTime. do we want that?
           );
 
       widget.notifyParentNewMsg(message);
@@ -150,7 +149,7 @@ class _ChatPageState extends State<ChatPage> {
       groupId: (widget.chat["groupId"] == null) ? "" : widget.chat["groupId"],
       chatID: widget.chat["name"],
       text: text,
-      sentTime: DateTime.now().toString().substring(11, 16),
+      sentTime: DateTime.now(),
     ); // todo because chatMessages are local
     _sendMessage(text, widget.chat["name"]);
     setState(() {
@@ -283,14 +282,19 @@ class _ChatPageState extends State<ChatPage> {
               numRecommended: 10,
               onEmojiSelected: (emoji, category) {
                 //this adds emoji always at the end of the text which is not nice
-                textEditingController.text = textEditingController.text + emoji.emoji;
+                //textEditingController.text = textEditingController.text + emoji.emoji;
 
-                /* this code would enable emoji input anywhere in the text, but cursorPos does very strange things therefore
-                not possible
-                var cursorPos = textEditingController.selection;
-                textEditingController.text = textEditingController.text.substring(0, cursorPos.start)
-                    + emoji.emoji + textEditingController.text.substring(cursorPos.start, textEditingController.text.length);
-                */
+                //with this you can add emojis anywhere in the text but afterwards cursor jumps to beginning.
+                //this still needs some work. TODO
+                var cursorPos = textEditingController.selection.start;
+
+
+                textEditingController.text = textEditingController.text.substring(0, cursorPos)
+                    + emoji.emoji + textEditingController.text.substring(cursorPos, textEditingController.text.length);
+
+                textEditingController.selection = TextSelection.fromPosition(TextPosition(offset: cursorPos + 2));
+                print("cursor at " + textEditingController.selection.start.toString());
+                setState(() {});
               },
             ) : new Container(width: 0, height: 0),
           ],
