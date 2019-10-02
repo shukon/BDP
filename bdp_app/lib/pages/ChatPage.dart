@@ -22,6 +22,25 @@ class ChatPage extends StatefulWidget {
   _ChatPageState createState() => _ChatPageState();
 }
 
+
+
+//This class and function are a workaround for some strange bug concerning caret position
+//more information on https://github.com/flutter/flutter/issues/11416
+class SelectingTextEditingController extends TextEditingController {
+  SelectingTextEditingController({String text}) : super(text: text) {
+    if (text != null) setTextAndPosition(text);
+  }
+
+  void setTextAndPosition(String newText, {int caretPosition}) {
+    int offset = caretPosition != null ? caretPosition : newText.length;
+    value = value.copyWith(
+        text: newText,
+        selection: TextSelection.collapsed(offset: offset),
+        composing: TextRange.empty);
+  }
+}
+
+
 class _ChatPageState extends State<ChatPage> {
   @override
   void initState() {
@@ -34,8 +53,8 @@ class _ChatPageState extends State<ChatPage> {
     super.initState();
   }
 
-  final TextEditingController textEditingController =
-      new TextEditingController();
+
+  SelectingTextEditingController textEditingController = new SelectingTextEditingController();
 
 
   //emojis added, open problems remaining
@@ -235,8 +254,6 @@ class _ChatPageState extends State<ChatPage> {
 
 
 
-    
-
     return Scaffold(
         appBar: AppBar(
           title: (widget.chat['groupId'] == null)
@@ -281,20 +298,11 @@ class _ChatPageState extends State<ChatPage> {
               recommendKeywords: ["racing", "horse"],
               numRecommended: 10,
               onEmojiSelected: (emoji, category) {
-                //this adds emoji always at the end of the text which is not nice
-                //textEditingController.text = textEditingController.text + emoji.emoji;
-
-                //with this you can add emojis anywhere in the text but afterwards cursor jumps to beginning.
-                //this still needs some work. TODO
                 var cursorPos = textEditingController.selection.start;
 
-
-                textEditingController.text = textEditingController.text.substring(0, cursorPos)
-                    + emoji.emoji + textEditingController.text.substring(cursorPos, textEditingController.text.length);
-
-                textEditingController.selection = TextSelection.fromPosition(TextPosition(offset: cursorPos + 2));
-                print("cursor at " + textEditingController.selection.start.toString());
-                setState(() {});
+                textEditingController.setTextAndPosition(textEditingController.text.substring(0, cursorPos)
+                    + emoji.emoji + textEditingController.text.substring(cursorPos, textEditingController.text.length),
+                    caretPosition: cursorPos + 2);
               },
             ) : new Container(width: 0, height: 0),
           ],
