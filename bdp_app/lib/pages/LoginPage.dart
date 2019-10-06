@@ -171,12 +171,13 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         title: Text("BDP Test App"),
       ),
+
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text((_loggedIn) ? ("Logged in as user: " + _username) : ("Login"),
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32.0)),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28.0)),
             new Container(
               padding: EdgeInsets.symmetric(horizontal: 8.0),
               child: (_loggedIn) ? (appearanceLoggedIn) : (appearanceLoggedOut),

@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:bdp_app/chat/bubble.dart';
 
 class ChatMessage extends StatelessWidget {
-  ChatMessage({Key key, this.username, this.icon, this.sendername, this.destination, this.chatID, this.text})
+  ChatMessage({Key key, this.username, this.icon, this.sendername, this.destination, this.messageId, this.chatID, this.groupId, this.text, this.sentTime})
       : super(key: key);
   final String username;
   final Icon icon;
   final String sendername;
   final String destination;
+  final String messageId;
   final String chatID;
+  final String groupId;
   final String text;
-  final String sentTime = "23:55";
+  final DateTime sentTime;
   final bool received = true;
 
   String getSenderName() {
@@ -54,7 +56,7 @@ class ChatMessage extends StatelessWidget {
                         new Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
-                            Text(sentTime,
+                            Text(sentTime.toString().substring(11, 16),
                                 style: DefaultTextStyle.of(context)
                                     .style
                                     .apply(fontSizeFactor: 0.5)),
@@ -109,7 +111,7 @@ class ChatMessage extends StatelessWidget {
                         new Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
-                            Text(sentTime,
+                            Text(sentTime.toString().substring(11, 16),
                                 style: DefaultTextStyle.of(context)
                                     .style
                                     .apply(fontSizeFactor: 0.5)),
