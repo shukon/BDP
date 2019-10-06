@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:bdp_app/chat/ChatMessage.dart';
 import 'package:flutter/services.dart';
-import 'package:bdp_app/chat/emoji_picker.dart';
+import 'package:emoji_picker/emoji_picker.dart';
 
 class ChatPage extends StatefulWidget {
   ChatPage(
