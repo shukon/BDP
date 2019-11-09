@@ -17,8 +17,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   // Invoking methods in mesibo works over this channel - in this case we need to log in and log out
-  static const mesiboMethodChannel =
-      const MethodChannel("com.bdp.bdp_app/mesibo");
+  static const mesiboMethodChannel = const MethodChannel("com.bdp.bdp_app/mesibo");
 
   // TODO this should be replaced by a safer method
   String _username = "";
@@ -78,7 +77,8 @@ class _LoginPageState extends State<LoginPage> {
       var validLogins = {
         "stefan": "1234",
         "shuki": "aaa",
-        "thorsten": "passwort"
+        "thorsten": "passwort",
+        "marian": "37"
       };
       if (validLogins.containsKey(_username) &&
           validLogins[_username] == _password) {
