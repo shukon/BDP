@@ -62,6 +62,11 @@ List<Map<String, Object>> getChatData(String user) {
     'lastMessage': 'hi there',
     'lastSeen': '2:53 in the afternoon',
   }, {
+    'avatar': Icon(Icons.person),
+    'name': 'sanja',
+    'lastMessage': 'hi there',
+    'lastSeen': '11:24 in the afternoon',
+  }, {
     'avatar': Icon(Icons.group),
     'name': 'appsperten',
     'lastMessage': 'hi there',
