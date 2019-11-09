@@ -81,7 +81,7 @@ Die App muss auf Android, iOS und im Browser laufen --> Web App einfachste Lösu
 |          |          |                 | Chat|Cloud|Wiki | der |  
 \__________|__________/                 \_____|_____|_____|_____/ 
 ```
-Für Teilis müsste das Layout anders aussehen, da für sie nur der Chat und der Galerieordner ihnrer Freizeit relevant ist.
+Für Teilis müsste das Layout anders aussehen, da für sie nur der Chat und der Galerieordner ihrer Freizeit relevant ist.
 
 ### (1) Chat
 Chatroom mit MatterMost mit automatischen Gruppen für alles, für das ich angemeldet bin, z.B:  
