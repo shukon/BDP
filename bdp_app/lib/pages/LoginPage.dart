@@ -79,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
         "stefan": "1234",
         "shuki": "bbb",
         "thorsten": "passwort",
-        marian": "37",
+        "marian": "37",
         "sanja": "qwerty"
       };
       if (validLogins.containsKey(_username) &&
