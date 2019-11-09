@@ -4,6 +4,8 @@
 #    öffentliches Forum, schreibt gern eure Meinung, eure Wünsche, etc. --                 #
 ############################################################################################
 
+https://willowtreeapps.com/ideas/how-to-use-flutter-to-build-an-app-with-bottom-navigation
+
 Wünsche an den AK:
 - Live-Chatfunktion
 - Forumsfunktion
