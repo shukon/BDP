@@ -77,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
       // TODO Check if login data is valid: pretty secure at the moment, probably fine for deployment
       var validLogins = {
         "stefan": "1234",
-        "shuki": "aaa",
+        "shuki": "bbb",
         "thorsten": "passwort"
       };
       if (validLogins.containsKey(_username) &&
