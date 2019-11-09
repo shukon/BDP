@@ -1,3 +1,4 @@
+import 'package:bdp_app/pages/BillboardPage.dart';
 import 'package:flutter/material.dart';
 
 
@@ -18,7 +19,7 @@ void main() {
         // is not restarted.
         primarySwatch: Colors.deepOrange,
       ),
-      home : LoginPage(),
+      home : BillboardPage(),
       )
   );
 }

@@ -1,6 +1,7 @@
 import 'package:bdp_app/pages/web_view_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:bdp_app/pages/BillboardPage.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key, this.title}) : super(key: key);
@@ -100,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
 
     if (_loggedIn) {
       Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return WebViewContainer("https://chat.rezepthos.com/appsperten/channels/town-square"); // passing data to chat room
+        return BillboardPage(); // passing data to chat room
       }));
       _loginMesibo(_username);
     }
