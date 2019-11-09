@@ -79,7 +79,8 @@ class _LoginPageState extends State<LoginPage> {
         "stefan": "1234",
         "shuki": "bbb",
         "thorsten": "passwort",
-        "sanja": "qwerty",
+        marian": "37",
+        "sanja": "qwerty"
       };
       if (validLogins.containsKey(_username) &&
           validLogins[_username] == _password) {
