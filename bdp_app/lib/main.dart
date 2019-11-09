@@ -19,7 +19,7 @@ void main() {
         // is not restarted.
         primarySwatch: Colors.deepOrange,
       ),
-      home : BillboardPage(),
+      home : LoginPage(),
       )
   );
 }
