@@ -81,6 +81,7 @@ Die App muss auf Android, iOS und im Browser laufen --> Web App einfachste Lösu
 |          |          |             | Chat | Wiki |  der  |  
 \__________|__________/             \______|______|_______/ 
 ```
+Für Teilis müsste das Layout anders aussehen, da für sie nur der Chat und der Galerieordner ihnrer Freizeit relevant ist.
 
 ### (1) Chat
 Chatroom mit MatterMost mit automatischen Gruppen für alles, für das ich angemeldet bin, z.B:  
@@ -101,7 +102,9 @@ Eventuell gibt es hier auch eine Kalenderansicht
 
 ### (2 Neu) Kalender
 Im Kalender sollten alle BDP-Termine stehen. Termine zu denen man sich angemeldet hat werden herforgehoben. 
-Der Kalender ist an die Verschieden BdP Rollen (Teamer, Teili, gVo, eVo und Büro) angepasst
+Der Kalender ist an die Verschieden BdP-Rollen (Teamer, Teili, gVo, eVo und Büro) angepasst
+
+Im Kalender könnten weitere Dokumente wie Einladungen verlinkt sein.
 
 ### (3) Newsfeed / Eckbrief / Zeug
 Newsfeed evtl auch mit Tabs, unterteilen in  
