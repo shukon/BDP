@@ -1,4 +1,4 @@
-import 'package:bdp_app/pages/RoomsPage.dart';
+import 'package:bdp_app/pages/web_view_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -100,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
 
     if (_loggedIn) {
       Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return RoomsPage(username: _username); // passing data to chat room
+        return WebViewContainer("https://chat.rezepthos.com/appsperten/channels/town-square"); // passing data to chat room
       }));
       _loginMesibo(_username);
     }
@@ -163,7 +163,7 @@ class _LoginPageState extends State<LoginPage> {
           color: Colors.deepOrange,
           onPressed: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return RoomsPage(username: _username); // passing data to chat room
+              return WebViewContainer("https://chat.rezepthos.com/appsperten/channels/town-square"); // passing data to chat room
             }));
           },
         ),
