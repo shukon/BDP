@@ -55,17 +55,15 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Home'),
-        ),
-        body: Center(child: _widgetOptions.elementAt(_selectedIndex),
-        ),
 
-        bottomNavigationBar: BottomNavigationBar(
-        //currentIndex: 0, // this will be set when a new tab is tapped
-        items: [
-        BottomNavigationBarItem(
-        icon: new Icon(Icons.view_compact),
+    body: Center(child: _widgetOptions.elementAt(_selectedIndex),
+    ),
+
+    bottomNavigationBar: BottomNavigationBar(
+    //currentIndex: 0, // this will be set when a new tab is tapped
+    items: [
+    BottomNavigationBarItem(
+    icon: new Icon(Icons.view_compact),
     title: Text('Pinnwand'),
     ),
     BottomNavigationBarItem(
