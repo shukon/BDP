@@ -10,39 +10,20 @@
 import 'package:flutter/material.dart';
 import 'package:bdp_app/pages/web_view_container.dart';
 
-
-
-
-/// This Widget is the main application widget.
-class BillboardPage extends StatelessWidget {
-  static const String _title = 'Flutter Code Sample';
+class BillboardPage extends StatefulWidget {
+  BillboardPage({Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: _title,
-      home: MyStatefulWidget(),
-    );
-  }
+  _BillboardPageState createState() => _BillboardPageState();
 }
 
-class MyStatefulWidget extends StatefulWidget {
-  MyStatefulWidget({Key key}) : super(key: key);
-  @override
-  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
-
-
-}
-
-
-
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+class _BillboardPageState extends State<BillboardPage> {
   int _selectedIndex = 0;
   final List<Widget> _widgetOptions = [
     Text('Pinnwand'),
     WebViewContainer("https://chat.rezepthos.com/appsperten/channels/town-square"),
     Text('Cloud'),
-    Text('Wiki'),
+    WebViewContainer("http://wiki.ak-freizeiten.de.w017395c.kasserver.com/doku.php?id=start"),
     Text('Kalender'),
   ];
 
@@ -86,7 +67,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     ],
     selectedItemColor: Colors.blue[600],
     unselectedItemColor: Colors.blue[600],
-    backgroundColor: Colors.blue[800],
+    //backgroundColor: Colors.blue[800],
     onTap: _onTapped,
     ),
     );
