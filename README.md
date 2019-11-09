@@ -64,22 +64,22 @@ Die App hat einen Login.
 Die App muss auf Android, iOS und im Browser laufen --> Web App einfachste Lösung? Flutter? 
 
 ```
- _____________________               _____________________
-/          |          \             /              |_lo___\    --> lo = Logout
-|          |          |             |                     |
-|          | (Meine)  |             |                     |
-|  Chat    | Seminare |             |                     |
-|   (1)    |Freizeiten|             |     Schwarzes       |
-|          |   (2)    |             |        Brett        |
-|          |          |             |                     |
-|__________|__________|  Neue Idee  |                     |
-|          |          |             |                     |  
-| Newsfeed |   Wiki   |             |                     |  
-| (3)      |    (4)   |             |                     |  
-|          |          |             |_____________________|  
-|          |          |             |    |N|      | Kalen-|   --> N = Neue Nachricht
-|          |          |             | Chat | Wiki |  der  |  
-\__________|__________/             \______|______|_______/ 
+ _____________________                   _______________________
+/          |          \                 /                |_lo___\    --> lo = Logout
+|          |          |                 |                       |
+|          | (Meine)  |                 |                       |
+|  Chat    | Seminare |                 |                       |
+|   (1)    |Freizeiten|                 |       Schwarzes       |
+|          |   (2)    |                 |         Brett         |
+|          |          |                 |                       |
+|__________|__________|      Neue Idee  |                       |
+|          |          |                 |                       |  
+| Newsfeed |   Wiki   |                 |                       |  
+| (3)      |    (4)   |                 |                       |  
+|          |          |                 |_______________________|  
+|          |          |                 |   |N|     |     |Kalen|   --> N = Neue Nachricht
+|          |          |                 | Chat|Cloud|Wiki | der |  
+\__________|__________/                 \_____|_____|_____|_____/ 
 ```
 Für Teilis müsste das Layout anders aussehen, da für sie nur der Chat und der Galerieordner ihnrer Freizeit relevant ist.
 
