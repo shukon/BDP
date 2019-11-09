@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 
 
 import 'package:bdp_app/pages/LoginPage.dart';
-import 'package:bdp_app/pages/RoomsPage.dart';
-import 'package:bdp_app/pages/ChatPage.dart';
-//void main() => runApp(MyApp());
 
 void main() {
   runApp(MaterialApp(
@@ -25,5 +22,3 @@ void main() {
       )
   );
 }
-
-
