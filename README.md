@@ -64,22 +64,22 @@ Die App hat einen Login.
 Die App muss auf Android, iOS und im Browser laufen --> Web App einfachste Lösung? Flutter? 
 
 ```
- _____________________  
-/          |          \  
-|          |          |  
-|          | (Meine)  |  
-|  Chat    | Seminare |  
-|   (1)    |Freizeiten|  
-|          |   (2)    |  
-|          |          |  
-|__________|__________|  
-|          |          |  
-| Newsfeed |   Wiki   |  
-| (3)      |    (4)   |  
-|          |          |  
-|          |          |  
-|          |          |  
-\__________|__________/  
+ _____________________               _____________________
+/          |          \             /              |_lo___\    --> lo = Logout
+|          |          |             |                     |
+|          | (Meine)  |             |                     |
+|  Chat    | Seminare |             |                     |
+|   (1)    |Freizeiten|             |     Schwarzes       |
+|          |   (2)    |             |        Brett        |
+|          |          |             |                     |
+|__________|__________|  Neue Idee  |                     |
+|          |          |             |                     |  
+| Newsfeed |   Wiki   |             |                     |  
+| (3)      |    (4)   |             |                     |  
+|          |          |             |_____________________|  
+|          |          |             |    |N|      | Kalen-|   --> N = Neue Nachricht
+|          |          |             | Chat | Wiki |  der  |  
+\__________|__________/             \______|______|_______/ 
 ```
 
 ### (1) Chat
@@ -98,6 +98,10 @@ Hier werden auch Einladungen zu Seminaren untergebracht
 Eventuell gibt es hier auch eine Kalenderansicht  
 
 Über "Meine Freizeiten" kann man auch in den Chatroom zu der entsprechenden Freizeit gelangen  
+
+### (2 Neu) Kalender
+Im Kalender sollten alle BDP-Termine stehen. Termine zu denen man sich angemeldet hat werden herforgehoben. 
+Der Kalender ist an die Verschieden BdP Rollen (Teamer, Teili, gVo, eVo und Büro) angepasst
 
 ### (3) Newsfeed / Eckbrief / Zeug
 Newsfeed evtl auch mit Tabs, unterteilen in  
