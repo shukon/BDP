@@ -3,13 +3,9 @@
 Hi!
 In der letzten Freizeitenevaluation kam von Teamer\*innen-Seite der Wunsch nach einer BDP-App auf.  
 Seither ist viel geschehen und auch der Vorstand und das Büro haben ihre Vorstellungen mit in den Topf geworfen.  
-Es hat sich jetzt sowas wie ein BDP-Cyber-AK ;) gegründet, der die Wünsche geordnet, zusammengelegt und auf technische Umsetzbarkeit untersucht hat. Wir sind aktuell zu drei-ein-halbt: Thorsten, Stefan, Shuki und ab Herbst evtl. Ramona.  
+Es hat sich jetzt sowas wie ein BDP-Cyber-AK ;) gegründet, der die Wünsche geordnet, zusammengelegt und auf technische Umsetzbarkeit untersucht hat. Wir sind aktuell zu drei-ein-halbt: Thorsten, Stefan, Shuki, Rene, Sanja und Marian.  
 
-Zur Zeit befinden wir uns in der Planungsphase.  
-Das bedeutet, wir können ziemlich gut noch Hilfe jeder Art gebrauchen - Programmierung, Design, Konzept und auch Wünsche. Jede Resonanz hilft - wir wollen die App nicht für, sondern mit euch entwickeln!  
-
-Für interaktive Diskussion haben wir mal ein etherpad geöffnet - das ist ein Dokument, in dem alle ohne Anmeldung mitschreiben können:  
-https://pad.riseup.net/p/bdpgoesdigital-keep  
+Zur Zeit können wir ziemlich gut noch Hilfe jeder Art gebrauchen - Programmierung, Design, Konzept und auch Wünsche. Jede Resonanz hilft - wir wollen die App nicht für, sondern mit euch entwickeln!  
 
 Wenn du das grade liest, hast du unser GitHub-Repository schon gefunden. Hier entsteht der Quelltext für das Projekt - kollaborativ, offen, frei! GitHub ist eine Plattform, die den Quelltext für uns speichert. Das hat einige Vorteile:
 - falls uns mal das Laptop verlustig geht, sind die Daten alle noch da!
@@ -20,11 +16,13 @@ Mehr Infos zu GitHub: https://git-scm.com/book/de/v1/Los-geht%E2%80%99s-Git-Grun
 
 ## Fahrplan:
 - SDK: Flutter
-- Progressive WebApp mit HTML5, CSS und JavaScript
-- Chat mit Mesibo
+- MatterMost aufsetzen
+- Nextcloud aufsetzen
+- DokuWiki aufsetzen
+- Alles zusammenmmixen und in eure Smartphones schütten
 
 ## Links:
-- Etherpad: https://pad.riseup.net/p/bdpgoesdigital-keep
+- ~~Etherpad: https://pad.riseup.net/p/bdpgoesdigital-keep~~ nicht aktiv gewartet, schreibt uns lieber eine Mail.
 - Github: https://github.com/shukon/BDP/
 - Bisheriger Intern-Bereich: https://www.bawue.bdp.org/intern/
 - Freizeiten: https://www.ak-freizeiten.de/freizeiten/jugendfreizeiten/
@@ -63,7 +61,7 @@ ________________________________________________________________________________
 
 Die App hat zwei (drei?) verschiedene Layouts/Funktionalitäten: eine für Teamer\*innen, eine für Teilis(, eine für Büro?). Kursive Bereiche sind nur für Teamer\*innen verfügbar  
 Die App hat einen Login.  
-Die App muss auf Android, iOS und im Browser laufen --> Web App einfachste Lösung?  
+Die App muss auf Android, iOS und im Browser laufen --> Web App einfachste Lösung? Flutter? 
 
 ```
  _____________________  
@@ -85,7 +83,7 @@ Die App muss auf Android, iOS und im Browser laufen --> Web App einfachste Lösu
 ```
 
 ### (1) Chat
-Chatroom (z.B. Rocket-Chat) mit automatischen Gruppen für alles, für das ich angemeldet bin, z.B:  
+Chatroom mit MatterMost mit automatischen Gruppen für alles, für das ich angemeldet bin, z.B:  
     - Gruppe mit Teilis und Teamis einer Freizeit  
     - Gruppenchat für Team zur Planung  
 
