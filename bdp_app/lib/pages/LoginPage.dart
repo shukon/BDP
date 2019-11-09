@@ -77,7 +77,8 @@ class _LoginPageState extends State<LoginPage> {
       var validLogins = {
         "stefan": "1234",
         "shuki": "aaa",
-        "thorsten": "passwort"
+        "thorsten": "passwort",
+        "marian": "37"
       };
       if (validLogins.containsKey(_username) &&
           validLogins[_username] == _password) {
