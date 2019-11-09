@@ -93,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
             builder: (BuildContext context) {
               return AlertDialog(
                   title: new Text(
-                      "Benuztername oder Passwort nicht nicht falsch"));
+                      "Benuztername oder Passwort nicht falsch"));
             });
       }
     });
