@@ -66,7 +66,7 @@ class _BottomBarState extends State<BottomBar> {
     ),
 
     ],
-    selectedItemColor: Colors.blue[600],
+    selectedItemColor: Colors.blue[900],
     unselectedItemColor: Colors.blue[600],
     //backgroundColor: Colors.blue[800],
     onTap: _onTapped,

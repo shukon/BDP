@@ -20,7 +20,7 @@ void main() {
         // is not restarted.
         primarySwatch: Colors.deepOrange,
       ),
-      home : BottomBar(),
+      home : LoginPage(),
       )
   );
 }

@@ -2,35 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:bdp_app/pages/LoginPage.dart';
 
 
-class HomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new MaterialApp(
-      title: 'Flutter Demo',
-      theme: new ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: new MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+
+class HomePage extends StatefulWidget {
+  HomePage({Key key, this.title}) : super(key: key);
   final String title;
 
   @override
-  _MyHomePageState createState() => new _MyHomePageState();
+  _HomePageState createState() => new _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomePageState extends State<HomePage> {
 
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text(widget.title),
+        title: new Text('Home'),
         actions: <Widget>[
           PopupMenuButton<String>(
             onSelected: choiceAction,
@@ -64,7 +53,9 @@ class _MyHomePageState extends State<MyHomePage> {
     }else if(choice == Constants.Subscribe){
       print('Subscribe');
     }else if(choice == Constants.SignOut){
-      return LoginPage();
+      Navigator.pop(context);
+
+
     }
   }
 }

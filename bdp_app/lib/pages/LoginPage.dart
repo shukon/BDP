@@ -17,9 +17,6 @@ class _LoginPageState extends State<LoginPage> {
     _passwordFilter.addListener(_passwordListen);
   }
 
-  // Invoking methods in mesibo works over this channel - in this case we need to log in and log out
-  static const mesiboMethodChannel =
-      const MethodChannel("com.bdp.bdp_app/mesibo");
 
   // TODO this should be replaced by a safer method
   String _username = "";
@@ -55,23 +52,7 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  Future<void> _loginMesibo(String username) async {
-    try {
-      await mesiboMethodChannel.invokeMethod('login', {"email": username});
-      print("Successfully logged in as " + username);
-    } on PlatformException catch (e) {
-      print("Something utterly wrong: '${e.message}'.");
-    }
-  }
 
-  Future<void> _logoutMesibo() async {
-    try {
-      await mesiboMethodChannel.invokeMethod('logout');
-      print("Successfully logged out");
-    } on PlatformException catch (e) {
-      print("Something utterly wrong: '${e.message}'.");
-    }
-  }
 
   Future _loginButtonPressed() async {
     setState(() {
@@ -101,23 +82,19 @@ class _LoginPageState extends State<LoginPage> {
 
     if (_loggedIn) {
       Navigator.push(context, MaterialPageRoute(builder: (context) {
+        _loggedIn = false;
         return BottomBar(); // passing data to chat room
       }));
-      _loginMesibo(_username);
+
     }
   }
 
-  Future _logoutButtonPressed() async {
-    setState(() {
-      _logoutMesibo();
-      _loggedIn = false;
-    });
-  }
+
 
   @override
   Widget build(BuildContext context) {
     // Appearance changes on login-status
-    var appearanceLoggedOut = new Column(
+    var appearance = new Column(
       children: <Widget>[
         new Container(
           child: new TextField(
@@ -151,25 +128,7 @@ class _LoginPageState extends State<LoginPage> {
       ],
     );
 
-    var appearanceLoggedIn = new Column(
-      children: <Widget>[
-        RaisedButton(
-          child: Text("Abmelden"),
-          color: Colors.deepOrange,
-          onPressed: () {
-            _logoutButtonPressed();
-          },
-        ),RaisedButton(
-          child: Text("Weiter zum Chatten"),
-          color: Colors.deepOrange,
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return WebViewContainer("https://chat.rezepthos.com/appsperten/channels/town-square"); // passing data to chat room
-            }));
-          },
-        ),
-      ],
-    );
+
 
     return Scaffold(
       appBar: AppBar(
@@ -180,11 +139,11 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text((_loggedIn) ? ("Logged in as user: " + _username) : ("Login"),
+            Text("Login",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28.0)),
             new Container(
               padding: EdgeInsets.symmetric(horizontal: 8.0),
-              child: (_loggedIn) ? (appearanceLoggedIn) : (appearanceLoggedOut),
+              child:appearance,
             )
           ],
         ),
