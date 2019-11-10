@@ -9,18 +9,19 @@
 
 import 'package:flutter/material.dart';
 import 'package:bdp_app/pages/web_view_container.dart';
+import 'package:bdp_app/pages/HomePage.dart';
 
-class BillboardPage extends StatefulWidget {
-  BillboardPage({Key key}) : super(key: key);
+class BottomBar extends StatefulWidget {
+  BottomBar({Key key}) : super(key: key);
 
   @override
-  _BillboardPageState createState() => _BillboardPageState();
+  _BottomBarState createState() => _BottomBarState();
 }
 
-class _BillboardPageState extends State<BillboardPage> {
+class _BottomBarState extends State<BottomBar> {
   int _selectedIndex = 0;
   final List<Widget> _widgetOptions = [
-    Text('Pinnwand'),
+    HomePage(),
     WebViewContainer("https://chat.rezepthos.com/appsperten/channels/town-square"),
     Text('Cloud'),
     WebViewContainer("http://wiki.ak-freizeiten.de.w017395c.kasserver.com/doku.php?id=start"),

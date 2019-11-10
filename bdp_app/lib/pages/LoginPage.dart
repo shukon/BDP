@@ -1,7 +1,7 @@
 import 'package:bdp_app/pages/web_view_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:bdp_app/pages/BillboardPage.dart';
+import 'package:bdp_app/pages/BottomBar.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key, this.title}) : super(key: key);
@@ -101,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
 
     if (_loggedIn) {
       Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return BillboardPage(); // passing data to chat room
+        return BottomBar(); // passing data to chat room
       }));
       _loginMesibo(_username);
     }
@@ -144,7 +144,7 @@ class _LoginPageState extends State<LoginPage> {
     color: Colors.deepOrange,
     onPressed: () {
       _username = "shuki";
-      _password = "aaa";
+      _password = "bbb";
     _loginButtonPressed();
     },
         ),
