@@ -46,7 +46,7 @@ class _BottomBarState extends State<BottomBar> {
     items: [
     BottomNavigationBarItem(
     icon: new Icon(Icons.view_compact),
-    title: Text('Pinnwand'),
+    title: Text('Home'),
     ),
     BottomNavigationBarItem(
     icon: new Icon(Icons.chat_bubble_outline),

@@ -20,6 +20,7 @@ class _HomePageState extends State<HomePage> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('Home'),
+        automaticallyImplyLeading: false,
         actions: <Widget>[
           PopupMenuButton<String>(
             onSelected: choiceAction,
@@ -48,11 +49,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   choiceAction(String choice){
-    if(choice == Constants.Settings){
-      print('Settings');
-    }else if(choice == Constants.Subscribe){
-      print('Subscribe');
-    }else if(choice == Constants.SignOut){
+    if(choice == Constants.SignOut){
       Navigator.pop(context);
 
 
@@ -62,13 +59,9 @@ class _HomePageState extends State<HomePage> {
 
 class Constants {
 
-  static const String Subscribe = 'Subscribe';
-  static const String Settings = 'Settings';
   static const String SignOut = 'Sign out';
 
   static const List<String> choices = <String>[
-    Subscribe,
-    Settings,
     SignOut
   ];
 }
