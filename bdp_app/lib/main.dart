@@ -1,5 +1,6 @@
-import 'package:bdp_app/pages/BillboardPage.dart';
+import 'package:bdp_app/pages/BottomBar.dart';
 import 'package:flutter/material.dart';
+import 'package:bdp_app/pages/HomePage.dart';
 
 
 import 'package:bdp_app/pages/LoginPage.dart';
