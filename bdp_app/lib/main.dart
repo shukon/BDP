@@ -1,12 +1,13 @@
-import 'package:bdp_app/pages/BottomBar.dart';
 import 'package:flutter/material.dart';
-import 'package:bdp_app/pages/HomePage.dart';
+import 'package:intl/date_symbol_data_local.dart';
+
 
 
 import 'package:bdp_app/pages/LoginPage.dart';
 
 void main() {
-  runApp(MaterialApp(
+  //initializeDateFormatting is needed for table_calendar plugin - remove if calendar operated differently
+  initializeDateFormatting().then((_) => runApp(MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -22,5 +23,5 @@ void main() {
       ),
       home : LoginPage(),
       )
-  );
+  ));
 }
