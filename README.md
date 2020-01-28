@@ -3,7 +3,7 @@
 Hi!
 In der letzten Freizeitenevaluation kam von Teamer\*innen-Seite der Wunsch nach einer BDP-App auf.  
 Seither ist viel geschehen und auch der Vorstand und das Büro haben ihre Vorstellungen mit in den Topf geworfen.  
-Es hat sich jetzt sowas wie ein BDP-Cyber-AK ;) gegründet, der die Wünsche geordnet, zusammengelegt und auf technische Umsetzbarkeit untersucht hat. Wir sind aktuell zu drei-ein-halbt: Thorsten, Stefan, Shuki, Rene, Sanja und Marian.  
+Es hat sich jetzt sowas wie ein BDP-Cyber-AK ;) gegründet, der die Wünsche geordnet, zusammengelegt und auf technische Umsetzbarkeit untersucht hat. Wir sind aktuell zu x-ein-halbt: Thorsten, Stefan, Shuki, Tobias, Rene, Sanja und Marian.  
 
 Zur Zeit können wir ziemlich gut noch Hilfe jeder Art gebrauchen - Programmierung, Design, Konzept und auch Wünsche. Jede Resonanz hilft - wir wollen die App nicht für, sondern mit euch entwickeln!  
 
