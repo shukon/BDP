@@ -65,23 +65,23 @@ class _LoginPageState extends State<LoginPage> {
         "sanja": "qwerty",
         "rene": "rene"
       };
-      if (!ivalidLogins.containsKey(_username)){
+      if (!validLogins.containsKey(_username)){
 	  showDialog(
 	    context: context,
 	    barrierDismissible: true,
 	    builder: (BuildContext context) {
 		return AlertDialog(
 		title: new Text("Benutztername falsch"));
-		})
+		});
       } else {
-	  if(!validLogins[_username] == _password) {
+	  if(!(validLogins[_username] == _password)) {
 	      showDialog(
 		context: context,
 		barrierDismissible: true,
 		builder: (BuildContext context) {
 		    return AlertDialog(
 		    title: new Text("Psswort falsch"));
-		    })
+		    });
 	  } else {
 	      _loggedIn = true;
 	  }

@@ -7,7 +7,7 @@ import 'package:table_calendar/table_calendar.dart';
 
 
 class Calendar extends StatefulWidget {
-  Calendar({Key key}) : super(key:key);
+  Calendar(String s, {Key key}) : super(key:key);
 
   @override
   _CalendarState createState() => _CalendarState();

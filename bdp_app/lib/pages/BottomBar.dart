@@ -23,10 +23,11 @@ class _BottomBarState extends State<BottomBar> {
   int _selectedIndex = 0;
   final List<Widget> _widgetOptions = [
     HomePage(),
-    WebViewContainer("https://chat.rezepthos.com/appsperten/channels/town-square"),
-    Text('Cloud'),
-    WebViewContainer("http://wiki.ak-freizeiten.de.w017395c.kasserver.com/doku.php?id=start"),
-    Calendar(),
+    WebViewContainer("http://217.160.13.225:3000/home"),
+    //WebViewContainer("https://chat.rezepthos.com/appsperten/channels/town-square"),
+    WebViewContainer("https://nextcloud.bawue.bdp.org"),
+    WebViewContainer("https://wiki.bawue.bdp.org/start"),
+    WebViewContainer("https://nextcloud.bawue.bdp.org/index.php/apps/calendar/dayGridMonth/now"),
   ];
 
   void _onTapped(int index) {
@@ -68,6 +69,7 @@ class _BottomBarState extends State<BottomBar> {
 
     ],
     selectedItemColor: Colors.blue[900],
+    //selectedbackgroundColor: Colors.blue[600],
     unselectedItemColor: Colors.blue[600],
     //backgroundColor: Colors.blue[800],
     onTap: _onTapped,
