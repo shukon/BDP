@@ -1,5 +1,7 @@
 # BDP goes digital
 
+[Entwicklung siehe Kanban-Board](https://github.com/shukon/BDP/projects/1)
+
 Hi!
 In der letzten Freizeitenevaluation kam von Teamer\*innen-Seite der Wunsch nach einer BDP-App auf.  
 Seither ist viel geschehen und auch der Vorstand und das Büro haben ihre Vorstellungen mit in den Topf geworfen.  
@@ -13,13 +15,6 @@ Wenn du das grade liest, hast du unser GitHub-Repository schon gefunden. Hier en
 - git wird für viele Software-Projekte genutzt - es ergibt sich also ein gewisser professioneller Standard.
 
 Mehr Infos zu GitHub: https://git-scm.com/book/de/v1/Los-geht%E2%80%99s-Git-Grundlagen oder https://rogerdudler.github.io/git-guide/index.de.html.
-
-## Fahrplan:
-- SDK: Flutter
-- MatterMost aufsetzen
-- Nextcloud aufsetzen
-- DokuWiki aufsetzen
-- Alles zusammenmmixen und in eure Smartphones schütten
 
 ## Links:
 - ~~Etherpad: https://pad.riseup.net/p/bdpgoesdigital-keep~~ nicht aktiv gewartet, schreibt uns lieber eine Mail.
