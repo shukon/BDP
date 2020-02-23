@@ -5,7 +5,7 @@
 Hi!
 In der letzten Freizeitenevaluation kam von Teamer\*innen-Seite der Wunsch nach einer BDP-App auf.  
 Seither ist viel geschehen und auch der Vorstand und das Büro haben ihre Vorstellungen mit in den Topf geworfen.  
-Es hat sich jetzt sowas wie ein BDP-Cyber-AK ;) gegründet, der die Wünsche geordnet, zusammengelegt und auf technische Umsetzbarkeit untersucht hat. Wir sind aktuell zu x-ein-halbt: Thorsten, Stefan, Shuki, Tobias, Rene, Sanja und Marian.  
+Es hat sich jetzt sowas wie ein BDP-Cyber-AK ;) gegründet, der die Wünsche geordnet, zusammengelegt und auf technische Umsetzbarkeit untersucht hat.
 
 Zur Zeit können wir ziemlich gut noch Hilfe jeder Art gebrauchen - Programmierung, Design, Konzept und auch Wünsche. Jede Resonanz hilft - wir wollen die App nicht für, sondern mit euch entwickeln!  
 
@@ -26,33 +26,39 @@ Mehr Infos zu GitHub: https://git-scm.com/book/de/v1/Los-geht%E2%80%99s-Git-Grun
 
 ### Funktionen:
 
+Jeweils mit "aktuellen" Status - im Zweifel in den Issues nachschauen, die Readme wird eher sporadisch aktualisiert.
+
 - Live-Chatfunktion
+  - Rocket.Chat ist aufgesetzt und wartet (#19)
 - Forumsfunktion
+  - Wird einfach durch Chat abgelöst - beides wäre zuviel
 - Datenbanken/Lexika: Freizeitenberichte, Essenlisten etc., Anleitungen, Kochbuch, ...
+  - Das Wiki ist [up-and-running](https://wiki.bawue.bdp.org)
 - Benutzerrechteverwaltung
-- Freizeitenberichte
+  - SSO mittels Keycloak ist up-and-running [und wartet auf Automatisierung](https://github.com/shukon/BDP/issues/21)
 - Galerie
+  - Kann vermutlich über die [Nextcloud](https://nextcloud.bawue.bdp.org) realisiert werden
 - Verteilung von Infos
+  - Rocket-Chat?
 - Eckbrief ("Push")
+  - App... läuft nicht, Push ist schwierig, lowe Priorität
 
 ### Passive Ansprüche:
 
 - Nutzbar ohne Smartphone
+  - Aktuell nur ohne Smartphone :-)
 - getrennter Bereich nur für Teamer
+  - durch Rechteverwaltung realisiert (KeyCloak)
 - DSGVO-konform
+  - Bei IONOS gehostet ... wir bräuchten mal Infos was für Einverständniserklärungen wir für die automatisierte Verarbeitung von Nutzerdaten brauchen
 - offline nutzbar
+  - uff...
 - Registrier-/Einladefunktion für Teilis
+  - konzeptuell noch unklar (aber machbar)
 
 _____________________________________________________________________________________________________________________________
 
-## Funktionen-Teilbereiche
-
-- Chat
-- Freizeiten, Seminare und Veranstaltungen
-- Newsfeed
-- Wiki
-
-_________________________________________________________________________________________________________
+Ursprüngliche Idee (outdated!):
 
 Die App hat zwei (drei?) verschiedene Layouts/Funktionalitäten: eine für Teamer\*innen, eine für Teilis(, eine für Büro?). Kursive Bereiche sind nur für Teamer\*innen verfügbar  
 Die App hat einen Login.  
@@ -79,7 +85,7 @@ Die App muss auf Android, iOS und im Browser laufen --> Web App einfachste Lösu
 Für Teilis müsste das Layout anders aussehen, da für sie nur der Chat und der Galerieordner ihrer Freizeit relevant ist.
 
 ### (1) Chat
-Chatroom mit MatterMost mit automatischen Gruppen für alles, für das ich angemeldet bin, z.B:  
+Chatroom mit automatischen Gruppen für alles, für das ich angemeldet bin, z.B:  
     - Gruppe mit Teilis und Teamis einer Freizeit  
     - Gruppenchat für Team zur Planung  
 
@@ -117,11 +123,3 @@ Hier gibt es eine ordentliche Datenbank für
 - Spielekartei
 - Kochbuch
 - Anleitungen (Zelte, Gaskocher,...)
-
-## Sachen die wir (vielleicht) einkaufen können:  
-- User Management (Login etc.)
-- Chatfunktion
-- Wiki
-- Newsfeed?
-- Kalender
-- Galerie <-- niedrige Priorität
