@@ -10,6 +10,7 @@
 import 'package:flutter/material.dart';
 import 'package:bdp_app/pages/web_view_container.dart';
 import 'package:bdp_app/pages/HomePage.dart';
+import 'package:bdp_app/pages/Calendar.dart';
 
 class BottomBar extends StatefulWidget {
   BottomBar({Key key}) : super(key: key);
@@ -25,7 +26,7 @@ class _BottomBarState extends State<BottomBar> {
     WebViewContainer("https://chat.rezepthos.com/appsperten/channels/town-square"),
     Text('Cloud'),
     WebViewContainer("http://wiki.ak-freizeiten.de.w017395c.kasserver.com/doku.php?id=start"),
-    Text('Kalender'),
+    Calendar(),
   ];
 
   void _onTapped(int index) {
