@@ -1409,6 +1409,12 @@ robot.hear(/Weissrussland/i, function (res) {
         console.log(response);
     });
 });
+    
+ robot.hear(/Weißrussland/i, function (res) {
+    robot.adapter.callMethod('setReaction', ':flag_by:', res.message.id).then(function(response) {
+        console.log(response);
+    });
+});
  
 robot.hear(/Westsahara/i, function (res) {
     robot.adapter.callMethod('setReaction', ':flag_eh:', res.message.id).then(function(response) {
