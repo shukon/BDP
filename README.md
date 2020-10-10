@@ -1,6 +1,8 @@
 # BDP goes digital
 
-[Entwicklung siehe Kanban-Board](https://github.com/shukon/BDP/projects/1)
+Moved to: https://gitlab.com/bdp-bawue
+
+~~[Entwicklung siehe Kanban-Board](https://github.com/shukon/BDP/projects/1)~~
 
 Hi!
 In der letzten Freizeitenevaluation kam von Teamer\*innen-Seite der Wunsch nach einer BDP-App auf.  
